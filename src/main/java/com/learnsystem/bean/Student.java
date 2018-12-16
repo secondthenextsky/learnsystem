@@ -1,6 +1,8 @@
 package com.learnsystem.bean;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * 学生
@@ -63,6 +65,8 @@ public class Student {
      * 备注
      */
     private String remarks;
+
+    private Set<Role> roles = new LinkedHashSet<>();
 
     public int getId() {
         return id;
@@ -184,6 +188,14 @@ public class Student {
         this.remarks = remarks;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -202,6 +214,7 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", intendtime=" + intendtime +
                 ", remarks='" + remarks + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

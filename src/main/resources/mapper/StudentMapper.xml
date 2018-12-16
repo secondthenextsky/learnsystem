@@ -13,9 +13,6 @@
     <update id="update" parameterType="Student">
         update student
         <set>
-            <if test="id!=null and id!=''">
-                id=#{id},
-            </if>
             <if test="username!=null and username!=''">
                 username=#{username},
             </if>
@@ -59,9 +56,10 @@
                 remarks=#{remarks},
             </if>
         </set>
+        where id=#{id}
     </update>
 
-    <select id="get" parameterType="Student" resultType="java.util.List">
+    <select id="get" parameterType="Student" resultType="Student">
         select * from student
         <where>
             <if test="id!=null and id!=''">

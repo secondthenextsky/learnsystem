@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.ManagerDao">
+    <insert id="add" parameterType="Manager">
+        insert into manager(username,password,phonenumber)
+        value(#{username},#{password},#{phonenumber})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from manager where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Manager">
+        update manager
+        <set>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="phonenumber!=null and phonenumber!=''">
+                phonenumber=#{phonenumber},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="get" parameterType="Manager" resultType="Manager">
+        select * from manager
+        <where>
+            <if test="id!=null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="username!=null and username!=''">
+                and username=#{username}
+            </if>
+            <if test="password!=null and password!=''">
+                and password=#{password}
+            </if>
+            <if test="phonenumber!=null and phonenumber!=''">
+                and phonenumber=#{phonenumber}
+            </if>
+        </where>
+    </select>
+</mapper>

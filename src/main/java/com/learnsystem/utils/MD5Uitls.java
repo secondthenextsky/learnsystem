@@ -24,6 +24,10 @@ public class MD5Uitls {
 		}
 		return result;
 	}
-	
+
+	public static void main(String[] args){
+		System.out.println(MD5Uitls.md5("root"));//Y6nw6nu5gFB5a2SehUgYRQ==
+		System.out.println(MD5Uitls.md5("123456"));//4QrcOUm6Wau+VuBX8g+IPg==
+	}
 
 }
