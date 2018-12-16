@@ -41,4 +41,10 @@ public class ManagerController {
         manager.setId(id);
         return new Result(Result.HANDLE_SUCCESS, managerService.get(manager));
     }
+
+    @RequestMapping("/updateRole")
+    public Result updateRole(String userId,List<Integer> roleIdList){
+        managerService.updateRoles(userId,roleIdList);
+        return new Result(Result.HANDLE_SUCCESS,"更新角色成功");
+    }
 }

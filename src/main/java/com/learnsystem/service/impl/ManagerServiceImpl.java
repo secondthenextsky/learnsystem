@@ -2,7 +2,9 @@ package com.learnsystem.service.impl;
 
 import com.learnsystem.bean.Manager;
 import com.learnsystem.bean.Student;
+import com.learnsystem.bean.User;
 import com.learnsystem.dao.ManagerDao;
+import com.learnsystem.dao.RoleDao;
 import com.learnsystem.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import java.util.List;
 public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao managerDao;
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public int add(Manager manager) {
@@ -32,5 +36,14 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public List<Manager> get(Manager manager) {
         return managerDao.get(manager);
+    }
+
+    @Override
+    public void updateRoles(String userId, List<Integer> roleIdList) {
+        if(roleIdList!=null&&roleIdList.size()>0){
+            for(Integer roleId:roleIdList){
+                roleDao.addUserRoles(userId,roleId);
+            }
+        }
     }
 }

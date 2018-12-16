@@ -36,7 +36,7 @@ public interface RoleDao {
      * @param roleId 角色id
      * @return
      */
-    public int addUserRoles(@Param("userId")int userId,@Param("roleId")int roleId);
+    public int addUserRoles(@Param("userId")String userId,@Param("roleId")int roleId);
 
     /**
      *
