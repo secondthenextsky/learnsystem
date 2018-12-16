@@ -6,6 +6,8 @@ import com.learnsystem.service.PrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PrivilegeServiceImpl implements PrivilegeService {
     @Autowired
@@ -24,5 +26,10 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     @Override
     public int update(Privilege privilege) {
         return privilegeDao.update(privilege);
+    }
+
+    @Override
+    public List<Privilege> get(Privilege privilege) {
+        return privilegeDao.get(privilege);
     }
 }

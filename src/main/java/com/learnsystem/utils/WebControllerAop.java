@@ -18,7 +18,6 @@ public class WebControllerAop {
     @Around("executeService()")
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws NoSuchMethodException, SecurityException {
         try {
-            System.out.println(666);
             Object obj = proceedingJoinPoint.proceed();
             return obj;
         } catch (Throwable throwable) {

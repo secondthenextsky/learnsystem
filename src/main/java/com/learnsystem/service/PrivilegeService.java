@@ -9,4 +9,5 @@ public interface PrivilegeService {
     public int add(Privilege privilege);
     public int delete(int id);
     public int update(Privilege privilege);
+    public List<Privilege> get(Privilege privilege);
 }
