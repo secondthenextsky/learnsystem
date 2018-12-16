@@ -6,8 +6,17 @@ import java.util.Set;
 public class Role {
 
 	private String id;
+	/**
+	 * 角色名
+	 */
 	private String name;
+	/**
+	 * 角色描述
+	 */
 	private String description;
+	/**
+	 * 角色拥有的权限集合
+	 */
 	private Set<Privilege> privileges = new LinkedHashSet<Privilege>();
 	
 	public String getPrivilegeStr(){

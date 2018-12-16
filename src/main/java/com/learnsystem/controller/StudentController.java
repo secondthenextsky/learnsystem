@@ -35,7 +35,7 @@ public class StudentController {
     }
 
     @RequestMapping("/get")
-    public Result get(@RequestParam("id") int id) {
+    public Result get(@RequestParam("id") String id) {
         Student student = new Student();
         student.setId(id);
         return new Result(Result.HANDLE_SUCCESS, studentService.get(student));

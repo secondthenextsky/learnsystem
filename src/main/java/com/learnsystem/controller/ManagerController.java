@@ -36,7 +36,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/get")
-    public Result get(@RequestParam("id") int id) {
+    public Result get(@RequestParam("id") String id) {
         Manager manager = new Manager();
         manager.setId(id);
         return new Result(Result.HANDLE_SUCCESS, managerService.get(manager));

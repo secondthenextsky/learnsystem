@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.PrivilegeDao">
+    <insert id="add" parameterType="Privilege">
+        insert into Privilege(name,description)
+        value(#{name},#{description})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from Privilege where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Privilege">
+        update Privilege
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="get" parameterType="Privilege" resultType="Privilege">
+        select * from Privilege
+        <where>
+            <if test="id!=null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="description!=null and description!=''">
+                and description=#{description}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByName" parameterType="java.lang.String" resultType="Privilege">
+        select * from Privilege where name=#{name}
+    </select>
+</mapper>

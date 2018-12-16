@@ -3,7 +3,13 @@ package com.learnsystem.bean;
 public class Privilege {
 	
 	private String id;
+	/**
+	 * 权限名
+	 */
 	private String name;
+	/**
+	 * 权限描述
+	 */
 	private String description;
 	
 	public Privilege() {}

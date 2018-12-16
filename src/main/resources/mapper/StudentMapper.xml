@@ -6,7 +6,7 @@
         value(#{username},#{password},#{gender},#{number},#{birthday},#{nation},#{college},#{major},#{idcardnumber},#{address},#{phonenumber},#{email},#{intendtime},#{remarks})
     </insert>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="java.lang.String">
         delete from student where id=#{id}
     </delete>
 

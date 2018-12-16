@@ -7,16 +7,8 @@ import java.util.Set;
 /**
  * 学生
  */
-public class Student {
-    private int id;
-    /**
-     * 姓名
-     */
-    private String username;
-    /**
-     * 密码
-     */
-    private String password;
+public class Student extends User{
+
     /**
      * 性别
      */
@@ -49,10 +41,7 @@ public class Student {
      * 地址
      */
     private String address;
-    /**
-     * 联系方式
-     */
-    private String phonenumber;
+
     /**
      * 电子邮箱
      */
@@ -66,31 +55,6 @@ public class Student {
      */
     private String remarks;
 
-    private Set<Role> roles = new LinkedHashSet<>();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getGender() {
         return gender;
@@ -156,14 +120,6 @@ public class Student {
         this.address = address;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
-    }
-
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -188,21 +144,10 @@ public class Student {
         this.remarks = remarks;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
+                "gender='" + gender + '\'' +
                 ", number='" + number + '\'' +
                 ", birthday=" + birthday +
                 ", nation='" + nation + '\'' +
@@ -210,11 +155,9 @@ public class Student {
                 ", major='" + major + '\'' +
                 ", idcardnumber='" + idcardnumber + '\'' +
                 ", address='" + address + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
                 ", email='" + email + '\'' +
                 ", intendtime=" + intendtime +
                 ", remarks='" + remarks + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

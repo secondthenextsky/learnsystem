@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.RoleDao">
+    <insert id="add" parameterType="Role">
+        insert into Role(name,description)
+        value(#{name},#{description})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from Role where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Role">
+        update Role
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="get" parameterType="Role" resultType="Role">
+        select * from Role
+        <where>
+            <if test="id!=null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="description!=null and description!=''">
+                and description=#{description}
+            </if>
+        </where>
+    </select>
+
+    <update id="addRolePrivileges">
+        insert into role_privilege(roleId,privilegeId)
+        value(#{roleId},#{privilegeId})
+    </update>
+
+    <delete id="deleteRolePrivileges">
+        delete from role_privilege where roleId=#{roleId}
+    </delete>
+
+    <insert id="addUserRoles">
+        insert into user_role(userId,roleId)
+        value(#{userId},#{roleId})
+    </insert>
+
+    <select id="getPrivileges" parameterType="Role">
+        select p.* from privilege p,role_privilege rp
+        where rp.roleId=#{roleId} and rp.privilegeId=p.id
+    </select>
+</mapper>
