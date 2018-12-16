@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int delete(int id) {
+    public int delete(String id) {
         return studentDao.delete(id);
     }
 

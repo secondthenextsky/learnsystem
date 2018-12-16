@@ -20,7 +20,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public int delete(int id) {
+    public int delete(String id) {
         return managerDao.delete(id);
     }
 

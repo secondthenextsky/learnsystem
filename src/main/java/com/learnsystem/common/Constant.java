@@ -6,4 +6,5 @@ package com.learnsystem.common;
 public class Constant {
     public static final String SESSION_LOGIN_STUDENT = "session_login_student";
     public static final String SESSION_LOGIN_MANAGER = "session_login_manager";
+    public static final String SESSION_LOGIN_TEACHER = "session_login_teacher";
 }
