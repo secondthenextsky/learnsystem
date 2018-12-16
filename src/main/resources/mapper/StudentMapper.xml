@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.StudentDao">
+    <insert id="add" parameterType="Student">
+        insert into student(username,password,gender,number,birthday,nation,college,major,idcardnumber,address,phonenumber,email,intendtime,remarks)
+        value(#{username},#{password},#{gender},#{number},#{birthday},#{nation},#{college},#{major},#{idcardnumber},#{address},#{phonenumber},#{email},#{intendtime},#{remarks})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from student where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Student">
+        update student
+        <set>
+            <if test="id!=null and id!=''">
+                id=#{id},
+            </if>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="gender!=null and gender!=''">
+                gender=#{gender},
+            </if>
+            <if test="number!=null and number!=''">
+                number=#{number},
+            </if>
+            <if test="birthday!=null and birthday!=''">
+                birthday=#{birthday},
+            </if>
+            <if test="nation!=null and nation!=''">
+                nation=#{nation},
+            </if>
+            <if test="college!=null and college!=''">
+                college=#{college},
+            </if>
+            <if test="major!=null and major!=''">
+                major=#{major},
+            </if>
+            <if test="idcardnumber!=null and idcardnumber!=''">
+                idcardnumber=#{idcardnumber},
+            </if>
+            <if test="address!=null and address!=''">
+                address=#{address},
+            </if>
+            <if test="phonenumber!=null and phonenumber!=''">
+                phonenumber=#{phonenumber},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="intendtime!=null and intendtime!=''">
+                intendtime=#{intendtime},
+            </if>
+            <if test="remarks!=null and remarks!=''">
+                remarks=#{remarks},
+            </if>
+        </set>
+    </update>
+
+    <select id="get" parameterType="Student" resultType="java.util.List">
+        select * from student
+        <where>
+            <if test="id!=null and id!=''">
+                and id=#{id}
+            </if>
+            <if test="username!=null and username!=''">
+                and username=#{username}
+            </if>
+            <if test="password!=null and password!=''">
+                and password=#{password}
+            </if>
+            <if test="gender!=null and gender!=''">
+                and gender=#{gender}
+            </if>
+            <if test="number!=null and number!=''">
+                and number=#{number}
+            </if>
+            <if test="birthday!=null and birthday!=''">
+                and birthday=#{birthday}
+            </if>
+            <if test="nation!=null and nation!=''">
+                and nation=#{nation}
+            </if>
+            <if test="college!=null and college!=''">
+                and college=#{college}
+            </if>
+            <if test="major!=null and major!=''">
+                and major=#{major}
+            </if>
+            <if test="idcardnumber!=null and idcardnumber!=''">
+                and idcardnumber=#{idcardnumber}
+            </if>
+            <if test="address!=null and address!=''">
+                and address=#{address}
+            </if>
+            <if test="phonenumber!=null and phonenumber!=''">
+                and phonenumber=#{phonenumber}
+            </if>
+            <if test="email!=null and email!=''">
+                and email=#{email}
+            </if>
+            <if test="intendtime!=null and intendtime!=''">
+                and intendtime=#{intendtime}
+            </if>
+            <if test="remarks!=null and remarks!=''">
+                and remarks=#{remarks}
+            </if>
+        </where>
+    </select>
+</mapper>
