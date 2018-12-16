@@ -1,11 +1,13 @@
 package com.learnsystem.controller;
 
+import com.learnsystem.bean.Manager;
 import com.learnsystem.bean.Student;
 import com.learnsystem.common.Constant;
 import com.learnsystem.common.Result;
 import com.learnsystem.service.StudentService;
 import com.learnsystem.utils.MD5Uitls;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +36,38 @@ public class StudentController {
         }
     }
 
+    @RequestMapping("/logout")
+    public Result login(HttpServletRequest request) {
+        request.getSession().removeAttribute(Constant.SESSION_LOGIN_STUDENT);
+        return new Result(Result.HANDLE_SUCCESS, "退出成功");
+    }
+
+    @RequestMapping("/update")
+    public Result update(@RequestBody Student student) {
+        if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
+            student.setPassword(MD5Uitls.md5(student.getPassword()));
+        }
+        studentService.update(student);
+        return new Result(Result.HANDLE_SUCCESS, "更新成功");
+    }
+
     @RequestMapping("/get")
-    public Result get(@RequestParam("id") String id) {
+    public Result get(@RequestParam("id")String id) {
         Student student = new Student();
         student.setId(id);
-        return new Result(Result.HANDLE_SUCCESS, studentService.get(student));
+        student = studentService.get(student).get(0);
+        student.setPassword(null);
+        return new Result(Result.HANDLE_SUCCESS, student);
+    }
+
+    @RequestMapping("/getAll")
+    public Result getAll(){
+        List<Student> students = studentService.get(new Student());
+        if(students!=null&&students.size()>0){
+            for (Student student:students){
+                student.setPassword(null);
+            }
+        }
+        return new Result(Result.HANDLE_SUCCESS,students);
     }
 }

@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface RoleService {
     public int add(Role role);
+
+    /**
+     * 删除角色（先删除用户-角色关系和角色-权限关系）
+     * @param id
+     * @return
+     */
     public int delete(int id);
     public int update(Role role);
     public List<Role> get(Role role);

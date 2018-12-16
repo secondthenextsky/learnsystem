@@ -39,6 +39,21 @@ public interface RoleDao {
     public int addUserRoles(@Param("userId")String userId,@Param("roleId")int roleId);
 
     /**
+     * 删除该用户的某个角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    public int deleteUserRoles(@Param("userId")String userId,@Param("roleId")int roleId);
+
+    /**
+     * 删除所有用户的某个角色
+     * @param roleId
+     * @return
+     */
+    public int deleteUsersRoles(@Param("roleId")int roleId);
+
+    /**
      *
      * @param role
      * @return

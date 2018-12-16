@@ -8,6 +8,7 @@ import com.learnsystem.dao.RoleDao;
 import com.learnsystem.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class ManagerServiceImpl implements ManagerService {
         return managerDao.get(manager);
     }
 
+    @Transactional
     @Override
     public void updateRoles(String userId, List<Integer> roleIdList) {
         if(roleIdList!=null&&roleIdList.size()>0){

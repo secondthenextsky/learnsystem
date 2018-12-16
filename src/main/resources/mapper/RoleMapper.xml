@@ -56,4 +56,13 @@
         select p.* from privilege p,role_privilege rp
         where rp.roleId=#{roleId} and rp.privilegeId=p.id
     </select>
+
+    <delete id="deleteUserRoles">
+        delete from user_role
+        where userId=#{userId} and roleId=#{roleId}
+    </delete>
+
+    <delete id="deleteUsersRoles">
+        delete from user_role where roleId=#{roleId}
+    </delete>
 </mapper>
