@@ -18,6 +18,7 @@ function showCourseTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "course");
+    getArticleList();
 }
 //显示作业板块
 function showHomeworkTab() {
@@ -321,6 +322,29 @@ function updateteacher() {
         },
         error: function () {
             window.location.href = "/html/index_teacher.html";
+        }
+    });
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////课程章节
+//获取当前登录教师的所有章节列表
+function getArticleList() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/article/getAllByLoginTeacher",
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
         }
     });
 }

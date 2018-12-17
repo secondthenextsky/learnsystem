@@ -17,6 +17,37 @@ DROP DATABASE IF EXISTS `learnsystem`;
 CREATE DATABASE IF NOT EXISTS `learnsystem` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `learnsystem`;
 
+-- 导出  表 learnsystem.article 结构
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE IF NOT EXISTS `article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '顺序',
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `textContent` text NOT NULL COMMENT '文字内容',
+  `teacherId` varchar(50) NOT NULL COMMENT '发布者-教师id',
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程章节';
+
+-- 正在导出表  learnsystem.article 的数据：~0 rows (大约)
+DELETE FROM `article`;
+/*!40000 ALTER TABLE `article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `article` ENABLE KEYS */;
+
+-- 导出  表 learnsystem.attachment 结构
+DROP TABLE IF EXISTS `attachment`;
+CREATE TABLE IF NOT EXISTS `attachment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fileName` varchar(100) NOT NULL DEFAULT '0' COMMENT '文件名',
+  `articleId` int(11) NOT NULL DEFAULT '0' COMMENT '所属课程章节id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程附件';
+
+-- 正在导出表  learnsystem.attachment 的数据：~0 rows (大约)
+DELETE FROM `attachment`;
+/*!40000 ALTER TABLE `attachment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attachment` ENABLE KEYS */;
+
 -- 导出  表 learnsystem.manager 结构
 DROP TABLE IF EXISTS `manager`;
 CREATE TABLE IF NOT EXISTS `manager` (
@@ -39,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `manager` (
 DELETE FROM `manager`;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
 INSERT INTO `manager` (`id`, `username`, `password`, `phonenumber`, `gender`, `number`, `birthday`, `nation`, `remarks`, `idcardnumber`, `address`, `email`) VALUES
-	('1', 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==', '13919191919', '男', '0', '2018-12-17 19:28:29', '汉族', '汉族', '0', '0', '0');
+	('1', 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==', '13919191919', '男', '0', '2018-12-17 08:00:00', '汉族', '汉族', '0', '0888', '123@QQ。com');
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.privilege 结构
@@ -113,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `student` (
 DELETE FROM `student`;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
 INSERT INTO `student` (`id`, `username`, `password`, `gender`, `number`, `birthday`, `nation`, `college`, `major`, `idcardnumber`, `address`, `phonenumber`, `email`, `intendtime`, `remarks`) VALUES
-	('1', 'sky', '4QrcOUm6Wau+VuBX8g+IPg==', '男', '12344411', '2018-12-17 04:04:15', '汉族', '商学院', '数学专业', '141312121212121212', '夏威夷', '12131313131', '123@qq.com', '2018-12-17 03:24:43', '无');
+	('sdfasdf', 'sky2', '4QrcOUm6Wau+VuBX8g+IPg==', '男vv', '12344411', '2018-12-17 08:00:00', '汉族', '商学院', '数学专业', '141312121212121212', '夏威夷', '12131313131', '123@qq.com', '2018-12-17 08:00:00', '无');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.teacher 结构
@@ -138,9 +169,9 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 DELETE FROM `teacher`;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
 INSERT INTO `teacher` (`id`, `username`, `password`, `phonenumber`, `gender`, `number`, `birthday`, `nation`, `remarks`, `idcardnumber`, `address`, `email`) VALUES
-	('6f8b91ba-3612-432f-9a8e-413ba1f8f742', 't333', '4QrcOUm6Wau+VuBX8g+IPg==', 'sfdad', '男233', '123', '2018-12-09 08:00:00', '汉族', '无', '456', '789', '000'),
-	('7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', '男', '0', '2018-12-17 19:26:30', '汉族', '无', '0', '0', '0'),
-	('98a205de-a2c8-4b27-9f35-b564f6dd2287', '5', '4QrcOUm6Wau+VuBX8g+IPg==', '5', '55', '5', '2018-12-08 08:00:00', '5', '5', '5', '5', '5');
+	('45a78722-2863-4a57-b0a2-97b5277cae1e', 'asdf111', '4QrcOUm6Wau+VuBX8g+IPg==', 'asdf', 'asdf', 'asdf', '2018-12-21 08:00:00', 'a11111111111111111', 'x11', 'd1111111111111111', 'd11111111111111111', 'x11'),
+	('6f8b91ba-3612-432f-9a8e-413ba1f8f742', 't333', '4QrcOUm6Wau+VuBX8g+IPg==', 'sfdad', '男233', '123', '2018-12-19 08:00:00', '汉族', '无', '456', '789', '000'),
+	('7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', '男2', '134134', '2018-12-17 08:00:00', '汉族', '无233', '114422323', 'add', '55@66.com11');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.user_role 结构

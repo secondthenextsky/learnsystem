@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.ArticleDao">
+    <insert id="add" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+        insert into article(sort,title,textContent,teacherId,teacherName,createTime)
+        value(#{sort},#{title},#{textContent},#{teacherId},#{teacherName},#{createTime})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from article where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Article">
+        update article
+        <set>
+            <if test="sort!=null and sort!=''">
+                sort=#{sort},
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="textContent!=null and textContent!=''">
+                textContent=#{textContent},
+            </if>
+            <if test="teacherId!=null and teacherId!=''">
+                teacherId=#{teacherId},
+            </if>
+            <if test="teacherName!=null and teacherName!=''">
+                teacherName=#{teacherName},
+            </if>
+            <if test="createTime!=null">
+                createTime=#{createTime},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="getById" parameterType="int" resultType="Article">
+        select * from article where id=#{id}
+    </select>
+
+    <select id="getAll" resultType="Article">
+        select * from article order by sort,createTime
+    </select>
+
+    <select id="getAllByTeacher" parameterType="java.lang.String" resultType="Article">
+        select * from article
+        where teacherId=#{teacherId}
+        order by sort,createTime
+    </select>
+
+</mapper>

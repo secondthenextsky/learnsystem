@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.learnsystem.dao.ManagerDao">
-    <insert id="add" parameterType="Manager">
+    <insert id="add" parameterType="Manager" useGeneratedKeys="true" keyProperty="id">
         insert into manager(id,username,password,phonenumber,gender,number,birthday,nation,remarks,idcardnumber,address,email)
         value(#{id},#{username},#{password},#{phonenumber},#{gender},#{number},#{birthday},#{nation},#{remarks},#{idcardnumber},#{address},#{email})
     </insert>
