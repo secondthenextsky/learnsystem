@@ -25,13 +25,23 @@ CREATE TABLE IF NOT EXISTS `article` (
   `title` varchar(100) NOT NULL COMMENT '标题',
   `textContent` text NOT NULL COMMENT '文字内容',
   `teacherId` varchar(50) NOT NULL COMMENT '发布者-教师id',
+  `teacherName` varchar(50) DEFAULT NULL COMMENT '教师姓名',
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程章节';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='课程章节';
 
 -- 正在导出表  learnsystem.article 的数据：~0 rows (大约)
 DELETE FROM `article`;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
+INSERT INTO `article` (`id`, `sort`, `title`, `textContent`, `teacherId`, `teacherName`, `createTime`) VALUES
+	(1, 0, '啊啊啊', '大发送到发阿士大夫', '7fad3404-cbb5-476a-943f-a3f1a24d93df', '呵呵', '2018-12-18 05:11:19'),
+	(2, 1, '啊啊啊2', '大发送到发阿士大夫222', '7fad3404-cbb5-476a-943f-a3f1a24d93df', '呵呵', '2018-12-18 05:11:19'),
+	(3, 0, 'asd', '阿萨德撒地方', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:15:22'),
+	(4, 0, 'asd', '阿萨德撒地方', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:17:16'),
+	(5, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:21:45'),
+	(6, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:23:02'),
+	(7, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:24:00'),
+	(8, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:25:26');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.attachment 结构
@@ -41,11 +51,18 @@ CREATE TABLE IF NOT EXISTS `attachment` (
   `fileName` varchar(100) NOT NULL DEFAULT '0' COMMENT '文件名',
   `articleId` int(11) NOT NULL DEFAULT '0' COMMENT '所属课程章节id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程附件';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='课程附件';
 
 -- 正在导出表  learnsystem.attachment 的数据：~0 rows (大约)
 DELETE FROM `attachment`;
 /*!40000 ALTER TABLE `attachment` DISABLE KEYS */;
+INSERT INTO `attachment` (`id`, `fileName`, `articleId`) VALUES
+	(1, '1.txt', 1),
+	(2, '2.txt', 1),
+	(3, '3.txt', 1),
+	(4, '1.zip', 2),
+	(5, '1545085525716捕获.PNG', 8),
+	(6, '1545085525718显卡.PNG', 8);
 /*!40000 ALTER TABLE `attachment` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.manager 结构
