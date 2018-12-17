@@ -4,21 +4,25 @@ $(function () {
     $("#_easyui_tree_4").attr("onClick", "showManagerTab()");
     getTeacherList();
 })
+//显示教师板块
 function showTeacherTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "teacher");
 }
+//显示学生板块
 function showStudentTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "student");
 }
+//显示管理员板块
 function showManagerTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "manager");
 }
+//退出登录
 function logout() {
     $.ajax({
         type: "POST",
@@ -39,6 +43,7 @@ function logout() {
         }
     });
 }
+//新增教师
 function addTeacher() {
     var teacher = {};
     teacher.username = $("#teacher_username").val();
@@ -110,7 +115,7 @@ function updateTeacher() {
         },
         success: function (data) {
             if (data.code == 200) {
-                alert("添加成功");
+                alert("修改成功");
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -148,7 +153,7 @@ function getTeacherList() {
         }
     });
 }
-
+//创建教师列表的每一项
 function createTeacherLi(item) {
     var li = $('<div class="media text-muted pt-3"></div>');
     var div = $('<img src="../img/3.png" alt="" class="mr-2 rounded">' +
@@ -173,6 +178,7 @@ function createTeacherLi(item) {
     li.append(div);
     return li;
 }
+//删除教师
 function deleteTeacher(teacherId) {
     var ok = confirm("确定删除吗？");
     if (!ok) {
