@@ -24,14 +24,22 @@ CREATE TABLE IF NOT EXISTS `manager` (
   `username` varchar(50) NOT NULL DEFAULT '0' COMMENT '姓名',
   `password` varchar(50) NOT NULL DEFAULT '0' COMMENT '密码（加密后保存）',
   `phonenumber` varchar(50) NOT NULL DEFAULT '0' COMMENT '联系方式',
+  `gender` varchar(10) NOT NULL DEFAULT '男' COMMENT '性别',
+  `number` varchar(10) NOT NULL DEFAULT '0' COMMENT '工号',
+  `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '生日',
+  `nation` varchar(50) NOT NULL DEFAULT '汉族' COMMENT '民族',
+  `remarks` varchar(50) NOT NULL DEFAULT '0' COMMENT '备注',
+  `idcardnumber` varchar(50) NOT NULL DEFAULT '0' COMMENT '身份证号',
+  `address` varchar(50) NOT NULL DEFAULT '0' COMMENT '地址',
+  `email` varchar(50) NOT NULL DEFAULT '0' COMMENT '电子邮箱',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员';
 
--- 正在导出表  learnsystem.manager 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.manager 的数据：~1 rows (大约)
 DELETE FROM `manager`;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
-INSERT INTO `manager` (`id`, `username`, `password`, `phonenumber`) VALUES
-	('1', 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==', '13919191919');
+INSERT INTO `manager` (`id`, `username`, `password`, `phonenumber`, `gender`, `number`, `birthday`, `nation`, `remarks`, `idcardnumber`, `address`, `email`) VALUES
+	('1', 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==', '13919191919', '男', '0', '2018-12-17 19:28:29', '汉族', '汉族', '0', '0', '0');
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.privilege 结构
@@ -115,12 +123,24 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `username` varchar(50) NOT NULL DEFAULT '0' COMMENT '姓名',
   `password` varchar(50) NOT NULL DEFAULT '0' COMMENT '密码（加密后保存）',
   `phonenumber` varchar(50) NOT NULL DEFAULT '0' COMMENT '联系方式',
+  `gender` varchar(10) NOT NULL DEFAULT '男' COMMENT '性别',
+  `number` varchar(10) NOT NULL DEFAULT '0' COMMENT '工号',
+  `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '生日',
+  `nation` varchar(50) NOT NULL DEFAULT '汉族' COMMENT '民族',
+  `remarks` varchar(50) NOT NULL DEFAULT '无' COMMENT '备注',
+  `idcardnumber` varchar(50) NOT NULL DEFAULT '0' COMMENT '身份证号',
+  `address` varchar(50) NOT NULL DEFAULT '0' COMMENT '地址',
+  `email` varchar(50) NOT NULL DEFAULT '0' COMMENT '电子邮箱',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教师表';
 
--- 正在导出表  learnsystem.teacher 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.teacher 的数据：~3 rows (大约)
 DELETE FROM `teacher`;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
+INSERT INTO `teacher` (`id`, `username`, `password`, `phonenumber`, `gender`, `number`, `birthday`, `nation`, `remarks`, `idcardnumber`, `address`, `email`) VALUES
+	('6f8b91ba-3612-432f-9a8e-413ba1f8f742', 't333', '4QrcOUm6Wau+VuBX8g+IPg==', 'sfdad', '男233', '123', '2018-12-09 08:00:00', '汉族', '无', '456', '789', '000'),
+	('7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', '男', '0', '2018-12-17 19:26:30', '汉族', '无', '0', '0', '0'),
+	('98a205de-a2c8-4b27-9f35-b564f6dd2287', '5', '4QrcOUm6Wau+VuBX8g+IPg==', '5', '55', '5', '2018-12-08 08:00:00', '5', '5', '5', '5', '5');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.user_role 结构

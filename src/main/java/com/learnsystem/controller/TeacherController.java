@@ -62,8 +62,8 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, teachers);
     }
 
-    @RequestMapping("/update")
-    public Result update(@RequestBody Teacher teacher) {
+    @RequestMapping("/updateTeacher")
+    public Result updateTeacher(@RequestBody Teacher teacher) {
         if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
             teacher.setPassword(MD5Uitls.md5(teacher.getPassword()));
         }
@@ -78,5 +78,11 @@ public class TeacherController {
         }
         teacherService.add(teacher);
         return new Result(Result.HANDLE_SUCCESS, "添加成功");
+    }
+
+    @RequestMapping("/deleteTeacher")
+    public Result deleteTeacher(@RequestParam("teacherId")String teacherId) {
+        teacherService.delete(teacherId);
+        return new Result(Result.HANDLE_SUCCESS, "删除成功");
     }
 }

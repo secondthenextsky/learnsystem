@@ -1,9 +1,6 @@
 package com.learnsystem.bean;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class User {
     private String id;
@@ -21,10 +18,76 @@ public class User {
     private String phonenumber;
 
     /**
+     * 性别
+     */
+    private String gender;
+    /**
+     * 学号|工号
+     */
+    private String number;
+    /**
+     * 生日
+     */
+    private Date birthday;
+    /**
+     * 民族
+     */
+    private String nation;
+
+    /**
+     * 备注
+     */
+    private String remarks;
+
+    /**
+     * 身份证号
+     */
+    private String idcardnumber;
+    /**
+     * 地址
+     */
+    private String address;
+
+    /**
+     * 电子邮箱
+     */
+    private String email;
+
+    /**
      * 用户拥有的角色集合
      */
     private List<Role> roles = new ArrayList<>();
+    public String getGender() {
+        return gender;
+    }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
 
     public String getId() {
         return id;
@@ -62,6 +125,38 @@ public class User {
         this.roles = roles;
     }
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getIdcardnumber() {
+        return idcardnumber;
+    }
+
+    public void setIdcardnumber(String idcardnumber) {
+        this.idcardnumber = idcardnumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<Role> getRoles() {
         return roles;
     }
@@ -69,10 +164,18 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", number='" + number + '\'' +
+                ", birthday=" + birthday +
+                ", nation='" + nation + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", idcardnumber='" + idcardnumber + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 ", roles=" + roles +
                 '}';
     }
