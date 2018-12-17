@@ -25,8 +25,13 @@
         .input-group-lg {
             padding-bottom: 2px;
         }
-        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber{
+
+        .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber {
             text-overflow: ellipsis;
+        }
+
+        p {
+            text-indent: 2em
         }
     </style>
 </head>
@@ -44,14 +49,46 @@
         </form>
     </div>
 </nav>
-<div style="width:100%;">
-    创建新章节，，，
+<div style="width:100%;margin-top: 50px;">
+    <div style="width:100%;height:800px;float: left">
+        <div class="easyui-tabs" style="width:100%;">
+            <div title="article" style="padding:10px;">
+                <div style="width:100%;height: 700px;;" onclick="">
+                    <form method="post" enctype="multipart/form-data" action="/article/add">
+                        <table style="width:100%;height:auto;border-collapse: collapse;border-width: 1px;border-color: #00bbee;">
+                            <tr>
+                                <td >标题：</td>
+                                <td ><input type="text" name="title" style="width:800px;text-align: center;"></td>
+                            </tr>
+                            <tr>
+                                <td>文字内容：</td>
+                                <td><textarea name="textContent" cols="200" rows="20"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>附件：</td>
+                                <td><input type="file" name="files" multiple="multiple"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td> <input type="submit" class="btn btn-outline-success my-2 my-sm-0"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="container">
     <p>&copy; Company 2018-2019</p>
 </footer>
+<script>
+    $(function () {
 
+    });
+
+</script>
 
 </body>
 </html>

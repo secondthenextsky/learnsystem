@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,11 +44,45 @@ public class ArticleController {
      * @return
      */
     @RequestMapping("/add")
-    public Result add(@RequestBody Article article, HttpServletRequest request){
+    public Result add(@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
+        Article article = new Article();
+        article.setTitle(title);
+        article.setTextContent(textContent);
+        article.setCreateTime(new Date());
         Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
         article.setTeacherId(teacher.getId());
         article.setTeacherName(teacher.getUsername());
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
+        //保存文件
+        File path = new File(filePath);
+        if(!path.exists()){
+            path.mkdirs();
+        }
+        if(files!=null&&files.size()>0){
+            for(MultipartFile multipartFile:files){
+                File file = new File(filePath+File.separator+System.currentTimeMillis()+multipartFile.getOriginalFilename());
+                List<Attachment> attachments = article.getAttachments();
+                if(attachments==null){
+                    attachments = new ArrayList<>();
+                    article.setAttachments(attachments);
+                }
+                Attachment attachment = new Attachment();
+                attachment.setFileName(file.getName());
+                attachments.add(attachment);
+                try(FileOutputStream fos = new FileOutputStream(file);){
+                    InputStream inputStream = multipartFile.getInputStream();
+                    int len = 0;
+                    byte[] b = new byte[1024];
+                    while((len=inputStream.read(b))>0){
+                        fos.write(b,0,len);
+                    }
+                    fos.flush();
+                    fos.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
         articleService.add(article);
         return new Result(Result.HANDLE_SUCCESS,"创建成功");
     }
