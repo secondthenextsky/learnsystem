@@ -70,4 +70,13 @@ public class TeacherController {
         teacherService.update(teacher);
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
+
+    @RequestMapping("/addTeacher")
+    public Result addTeacher(@RequestBody Teacher teacher) {
+        if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
+            teacher.setPassword(MD5Uitls.md5(teacher.getPassword()));
+        }
+        teacherService.add(teacher);
+        return new Result(Result.HANDLE_SUCCESS, "添加成功");
+    }
 }

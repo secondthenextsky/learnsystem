@@ -59,4 +59,6 @@ public interface RoleDao {
      * @return
      */
     public List<Privilege> getPrivileges(Role role);
+
+    public List<Role> getRoles(@Param("userId")String userId);
 }

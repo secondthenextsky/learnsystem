@@ -1,6 +1,7 @@
 package com.learnsystem.service.impl;
 
 import com.learnsystem.bean.Manager;
+import com.learnsystem.bean.Role;
 import com.learnsystem.bean.Student;
 import com.learnsystem.bean.User;
 import com.learnsystem.dao.ManagerDao;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -21,6 +23,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public int add(Manager manager) {
+        manager.setId(UUID.randomUUID().toString());
         return managerDao.add(manager);
     }
 
@@ -36,7 +39,20 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Manager> get(Manager manager) {
-        return managerDao.get(manager);
+        List<Manager> managers = managerDao.get(manager);
+        if(managers!=null&&managers.size()>0){
+            for (Manager m:managers){
+                //获取角色
+                m.setRoles(roleDao.getRoles(m.getId()));
+                if(m.getRoles()!=null&&m.getRoles().size()>0){
+                    for(Role role:m.getRoles()){
+                        //获取权限
+                        role.setPrivileges(roleDao.getPrivileges(role));
+                    }
+                }
+            }
+        }
+        return managers;
     }
 
     @Transactional

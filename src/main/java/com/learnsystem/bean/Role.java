@@ -1,6 +1,8 @@
 package com.learnsystem.bean;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Role {
@@ -17,7 +19,7 @@ public class Role {
 	/**
 	 * 角色拥有的权限集合
 	 */
-	private Set<Privilege> privileges = new LinkedHashSet<Privilege>();
+	private List<Privilege> privileges = new ArrayList<Privilege>();
 	
 	public String getPrivilegeStr(){
 		return privileges.toString();
@@ -41,11 +43,14 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Privilege> getPrivileges() {
+	public List<Privilege> getPrivileges() {
 		return privileges;
 	}
 
-	
+	public void setPrivileges(List<Privilege> privileges) {
+		this.privileges = privileges;
+	}
+
 	@Override
 	public String toString() {
 		return this.getId()+"";

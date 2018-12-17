@@ -65,4 +65,9 @@
     <delete id="deleteUsersRoles">
         delete from user_role where roleId=#{roleId}
     </delete>
+
+    <select id="getRoles" parameterType="java.lang.String">
+        select r.* from role r,user_role
+        where ur.userId=#{userId} and ur.roleId=r.id
+    </select>
 </mapper>

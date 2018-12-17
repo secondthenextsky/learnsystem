@@ -1,6 +1,8 @@
 package com.learnsystem.bean;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -21,7 +23,7 @@ public class User {
     /**
      * 用户拥有的角色集合
      */
-    private Set<Role> roles = new LinkedHashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
 
     public String getId() {
@@ -56,11 +58,11 @@ public class User {
         this.phonenumber = phonenumber;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
