@@ -49,7 +49,7 @@
             <if test="email!=null and email!=''">
                 email=#{email},
             </if>
-            <if test="intendtime!=null and intendtime!=''">
+            <if test="intendtime!=null">
                 intendtime=#{intendtime},
             </if>
             <if test="remarks!=null and remarks!=''">
@@ -101,7 +101,7 @@
             <if test="email!=null and email!=''">
                 and email=#{email}
             </if>
-            <if test="intendtime!=null and intendtime!=''">
+            <if test="intendtime!=null">
                 and intendtime=#{intendtime}
             </if>
             <if test="remarks!=null and remarks!=''">

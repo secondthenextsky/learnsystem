@@ -42,12 +42,21 @@ public class StudentController {
         return new Result(Result.HANDLE_SUCCESS, "退出成功");
     }
 
-    @RequestMapping("/update")
-    public Result update(@RequestBody Student student) {
+    @RequestMapping("/updateStudent")
+    public Result updateStudent(@RequestBody Student student) {
         if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
             student.setPassword(MD5Uitls.md5(student.getPassword()));
         }
         studentService.update(student);
+        return new Result(Result.HANDLE_SUCCESS, "更新成功");
+    }
+
+    @RequestMapping("/addStudent")
+    public Result addStudent(@RequestBody Student student) {
+        if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
+            student.setPassword(MD5Uitls.md5(student.getPassword()));
+        }
+        studentService.add(student);
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 

@@ -3,18 +3,21 @@ $(function () {
     $("#_easyui_tree_3").attr("onClick", "showStudentTab()");
     $("#_easyui_tree_4").attr("onClick", "showManagerTab()");
     getTeacherList();
+    getStudentList();
 })
 //显示教师板块
 function showTeacherTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "teacher");
+    getTeacherList();
 }
 //显示学生板块
 function showStudentTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "student");
+    getStudentList();
 }
 //显示管理员板块
 function showManagerTab() {
@@ -225,13 +228,240 @@ function prepareUpdateTeacher(teacherId) {
                 $("#update_teacher_phonenumber").val(data.data.phonenumber);
                 $("#update_teacher_gender").val(data.data.gender);
                 $("#update_teacher_number").val(data.data.number);
-                $("#update_teacher_birthday").val(data.data.birthday);
+                var d = new Date(data.data.birthday);
+                $("#update_teacher_birthday").val(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate());
                 $("#update_teacher_nation").val(data.data.nation);
                 $("#update_teacher_remarks").val(data.data.remarks);
                 $("#update_teacher_idcardnumber").val(data.data.idcardnumber);
                 $("#update_teacher_address").val(data.data.address);
                 $("#update_teacher_email").val(data.data.email);
                 $("#openModal_updateteacher").click();
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+///////////////////////////////////////////////////////////////////////////////////////
+//获取学生列表
+function getStudentList() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/student/getAll",
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                var student_list = $("#student_list");
+                student_list.empty();
+                $.each(data.data, function (i, item) {
+                    var t = createStudentLi(item);
+                    student_list.append(t);
+                });
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+//创建学生列表的每一项
+function createStudentLi(item) {
+    var li = $('<div class="media text-muted pt-3"></div>');
+    var div = $('<img src="../img/3.png" alt="" class="mr-2 rounded">' +
+        '<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">' +
+        '<div class="d-flex justify-content-between align-items-center w-100">' +
+        '<strong class="text-gray-dark">id：' + item.id + '</strong>' +
+        '<a class="btn btn-outline-success my-2 my-sm-0"  onclick="deleteStudent(\'' + item.id + '\')">删除</a>' +
+        '</div> ' +
+        '<div class="d-flex justify-content-between align-items-center w-100">' +
+        '<span class="d-block">姓　　名：' + item.username + '</span>' +
+        '<a class="btn btn-outline-success my-2 my-sm-0"  onclick="prepareUpdateStudent(\'' + item.id + '\')">修改</a>' +
+        '</div> ' +
+        '<span class="d-block">联系方式：' + item.phonenumber + '</span>' +
+        '<span class="d-block">性　　别：' + item.gender + '</span>' +
+        '<span class="d-block">工　　号：' + item.number + '</span>' +
+        '<span class="d-block">生　　日：' + item.birthday + '</span>' +
+        '<span class="d-block">民　　族：' + item.nation + '</span>' +
+        '<span class="d-block">地　　址：' + item.address + '</span>' +
+        '<span class="d-block">电子邮箱：' + item.email + '</span>' +
+
+        '<span class="d-block">学　　院：' + item.college + '</span>' +
+        '<span class="d-block">专　　业：' + item.major + '</span>' +
+        '<span class="d-block">入学时间：' + item.intendtime + '</span>' +
+
+        '<span class="d-block">备　　注：' + item.remarks + '</span>' +
+        '</div>');
+    li.append(div);
+    return li;
+}
+
+//新增学生
+function addStudent() {
+    var student = {};
+    student.username = $("#student_username").val();
+    student.password = $("#student_password").val();
+    student.phonenumber = $("#student_phonenumber").val();
+    student.gender = $("#student_gender").val();
+    student.number = $("#student_number").val();
+    student.birthday = $("#student_birthday").val();
+    student.nation = $("#student_nation").val();
+    student.remarks = $("#student_remarks").val();
+    student.idcardnumber = $("#student_idcardnumber").val();
+    student.address = $("#student_address").val();
+    student.email = $("#student_email").val();
+
+    student.college = $("#student_college").val();
+    student.major = $("#student_major").val();
+    student.intendtime = $("#student_intendtime").val();
+
+    if (!student.username || !student.password || !student.phonenumber || !student.gender || !student.number ||
+        !student.birthday || !student.nation || !student.remarks || !student.idcardnumber || !student.address || !student.email||
+        !student.college || !student.major || !student.intendtime
+    ) {
+        alert("请输入完整信息");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/student/addStudent",
+        data: JSON.stringify(student),
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                alert("添加成功");
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            window.location.href = "/html/index_manager.html";
+        },
+        error: function () {
+            window.location.href = "/html/index_manager.html";
+        }
+    });
+}
+//修改学生信息
+function updateStudent() {
+    var student = {};
+    student.id = $("#update_student_id").val();
+    student.username = $("#update_student_username").val();
+    student.password = $("#update_student_password").val();
+    student.phonenumber = $("#update_student_phonenumber").val();
+    student.gender = $("#update_student_gender").val();
+    student.number = $("#update_student_number").val();
+    student.birthday = $("#update_student_birthday").val();
+    student.nation = $("#update_student_nation").val();
+    student.remarks = $("#update_student_remarks").val();
+    student.idcardnumber = $("#update_student_idcardnumber").val();
+    student.address = $("#update_student_address").val();
+    student.email = $("#update_student_email").val();
+
+    student.college = $("#update_student_college").val();
+    student.major = $("#update_student_major").val();
+    student.intendtime = $("#update_student_intendtime").val();
+
+    if (!student.username || !student.password || !student.phonenumber || !student.gender || !student.number ||
+        !student.birthday || !student.nation || !student.remarks || !student.idcardnumber || !student.address || !student.email||
+        !student.college || !student.major || !student.intendtime) {
+        alert("请输入完整信息");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/student/updateStudent",
+        data: JSON.stringify(student),
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                alert("修改成功");
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            window.location.href = "/html/index_manager.html";
+        },
+        error: function () {
+            window.location.href = "/html/index_manager.html";
+        }
+    });
+}
+//删除学生
+function deleteStudent(studentId) {
+    var ok = confirm("确定删除吗？");
+    if (!ok) {
+        return;
+    }
+    var url = "/student/deleteStudent?studentId=" + studentId;
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: url,
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            window.location.href = "/html/index_manager.html";
+        },
+        error: function () {
+            window.location.href = "/html/index_manager.html";
+        }
+    });
+}
+//获取该学生信息显示
+function prepareUpdateStudent(studentId) {
+    var url = "/student/get?id=" + studentId;
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: url,
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if(data.code==200){
+                $("#update_student_id").val(data.data.id);
+                $("#update_student_username").val(data.data.username);
+                $("#update_student_password").val("");
+                $("#update_student_phonenumber").val(data.data.phonenumber);
+                $("#update_student_gender").val(data.data.gender);
+                $("#update_student_number").val(data.data.number);
+                var d =  new Date(data.data.birthday);
+                $("#update_student_birthday").val(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate());
+                $("#update_student_nation").val(data.data.nation);
+                $("#update_student_remarks").val(data.data.remarks);
+                $("#update_student_idcardnumber").val(data.data.idcardnumber);
+                $("#update_student_address").val(data.data.address);
+                $("#update_student_email").val(data.data.email);
+
+                $("#update_student_college").val(data.data.college);
+                $("#update_student_major").val(data.data.major);
+                var d2 =  new Date(data.data.intendtime);
+                $("#update_student_intendtime").val(d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate());
+                $("#openModal_updatestudent").click();
             }else{
                 alert(data.data);
             }
