@@ -545,7 +545,7 @@ function updatemanager() {
         type: "POST",
         async: true,
         contentType: "application/json",
-        url: "/manager/updateManager",
+        url: "/manager/updateLoginManager",
         data: JSON.stringify(manager),
         datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
         beforeSend: function () {

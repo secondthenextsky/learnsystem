@@ -54,6 +54,16 @@ public class ManagerController {
             manager.setPassword(MD5Uitls.md5(manager.getPassword()));
         }
         managerService.update(manager);
+        return new Result(Result.HANDLE_SUCCESS, "更新成功");
+    }
+
+    //修改当前登录的管理员
+    @RequestMapping("/updateLoginManager")
+    public Result updateLoginManager(@RequestBody Manager manager,HttpServletRequest request) {
+        if(manager.getPassword()!=null&&!manager.getPassword().trim().equals("")){
+            manager.setPassword(MD5Uitls.md5(manager.getPassword()));
+        }
+        managerService.update(manager);
         manager.setPassword(null);
         request.getSession().setAttribute(Constant.SESSION_LOGIN_MANAGER,manager);
         return new Result(Result.HANDLE_SUCCESS, "更新成功");

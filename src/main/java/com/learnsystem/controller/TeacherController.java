@@ -53,6 +53,12 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, teacher);
     }
 
+    @RequestMapping("/getLoginTeacher")
+    public Result getLoginTeacher(HttpServletRequest request) {
+        Object teacher = request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
+        return new Result(Result.HANDLE_SUCCESS, teacher);
+    }
+
     @RequestMapping("/getAll")
     public Result getAll() {
         List<Teacher> teachers = teacherService.get(new Teacher());
@@ -68,6 +74,18 @@ public class TeacherController {
             teacher.setPassword(MD5Uitls.md5(teacher.getPassword()));
         }
         teacherService.update(teacher);
+        return new Result(Result.HANDLE_SUCCESS, "更新成功");
+    }
+
+    //修改当前登录的教师
+    @RequestMapping("/updateLoginTeacher")
+    public Result updateLoginTeacher(@RequestBody Teacher teacher,HttpServletRequest request) {
+        if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
+            teacher.setPassword(MD5Uitls.md5(teacher.getPassword()));
+        }
+        teacherService.update(teacher);
+        teacher.setPassword(null);
+        request.getSession().setAttribute(Constant.SESSION_LOGIN_TEACHER,teacher);
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 

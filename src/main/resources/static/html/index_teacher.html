@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>首页</title>
+
+    <link href="../bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/jumbotron.css" rel="stylesheet">
+    <link href="../css/offcanvas.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/teacher_index.js"></script>
+    <script src="../bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+
+    <style type="text/css">
+        .input-group-lg > .form-control {
+            font-size: 1rem;
+        }
+
+        .input-group-lg {
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">学习平台管理系统</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()">注销</button>
+        </form>
+    </div>
+</nav>
+<div style="width:100%;">
+    <div style="width:12%;height:500px;float: left">
+        <ul class="easyui-tree">
+            <li>
+                <span>学习平台系统</span>
+                <ul>
+                    <li id="attendance"><span>考勤管理</span></li>
+                    <li id="course"><span>课程管理</span></li>
+                    <li id="homework"><span>作业管理</span></li>
+                    <li id="interaction"><span>互动管理</span></li>
+                    <li id="teacher"><span>个人信息</span></li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div style="width:88%;height:800px;float: left">
+        <div class="easyui-tabs" id="mytabs">
+            <!--考勤板块-->
+            <div title="attendance" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;" onclick="">
+                    考勤
+                </div>
+            </div>
+            <!--课程板块-->
+            <div title="course" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;" onclick="">
+                    课程
+                </div>
+            </div>
+            <!--作业板块-->
+            <div title="homework" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;" onclick="">
+                    作业
+                </div>
+            </div>
+            <!--互动板块-->
+            <div title="interaction" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;" onclick="">
+                    互动
+                </div>
+            </div>
+            <!--个人信息板块-->
+            <div title="teacher" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;" onclick="">
+                    <form>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="update_teacher_id">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">姓　　名：</span>
+                                <input type="text" class="form-control" id="update_teacher_username" required>
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">密　　码：</span>
+                                <input type="password" class="form-control" required id="update_teacher_password">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">联系方式：</span>
+                                <input type="text" class="form-control" required id="update_teacher_phonenumber">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">性　　别：</span>
+                                <input type="text" class="form-control" required id="update_teacher_gender">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">工　　号：</span>
+                                <input type="text" class="form-control" required id="update_teacher_number">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">生　　日：</span>
+                                <input type="date" class="form-control" required id="update_teacher_birthday">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">民　　族：</span>
+                                <input type="text" class="form-control" required id="update_teacher_nation">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">身份证号：</span>
+                                <input type="text" class="form-control" required id="update_teacher_idcardnumber">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">地　　址：</span>
+                                <input type="text" class="form-control" required id="update_teacher_address">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">电子邮箱：</span>
+                                <input type="text" class="form-control" required id="update_teacher_email">
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" style="margin-top: 10px;">备　　注：</span>
+                                <input type="text" class="form-control" required id="update_teacher_remarks">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input onclick="updateteacher()" class="btn btn-primary" value="修改"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container">
+    <p>&copy; Company 2018-2019</p>
+</footer>
+
+
+</body>
+</html>
