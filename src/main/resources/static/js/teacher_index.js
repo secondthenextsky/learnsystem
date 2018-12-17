@@ -339,6 +339,20 @@ function getArticleList() {
         },
         success: function (data) {
             if (data.code == 200) {
+                var tbody = $("#articleListTBODY");
+                tbody.empty();
+
+                $.each(data.data, function (i, item) {
+                    console.log(i);
+                    var tr = $("<tr><td>"+item.id+"</td>" +
+                        "<td>"+item.sort+"</td>"+
+                        "<td>"+item.title+"</td>"+
+                        "<td>"+item.textContent+"</td>"+
+                        "<td>"+item.teacherName+"</td>"+
+                        "<td>"+item.createTime+"</td>"+
+                        "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a></td></tr>");
+                    tbody.append(tr);
+                });
 
             }
         },
