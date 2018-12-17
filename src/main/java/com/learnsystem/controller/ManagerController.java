@@ -49,11 +49,13 @@ public class ManagerController {
     }
 
     @RequestMapping("/updateManager")
-    public Result updateManager(@RequestBody Manager manager) {
+    public Result updateManager(@RequestBody Manager manager,HttpServletRequest request) {
         if(manager.getPassword()!=null&&!manager.getPassword().trim().equals("")){
             manager.setPassword(MD5Uitls.md5(manager.getPassword()));
         }
         managerService.update(manager);
+        manager.setPassword(null);
+        request.getSession().setAttribute(Constant.SESSION_LOGIN_MANAGER,manager);
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 
@@ -69,6 +71,12 @@ public class ManagerController {
         manager.setId(id);
         manager = managerService.get(manager).get(0);
         manager.setPassword(null);
+        return new Result(Result.HANDLE_SUCCESS, manager);
+    }
+
+    @RequestMapping("/getLoginManager")
+    public Result getLoginManager(HttpServletRequest request) {
+        Object manager = request.getSession().getAttribute(Constant.SESSION_LOGIN_MANAGER);
         return new Result(Result.HANDLE_SUCCESS, manager);
     }
 

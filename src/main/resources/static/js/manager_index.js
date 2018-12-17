@@ -2,8 +2,11 @@ $(function () {
     $("#_easyui_tree_2").attr("onClick", "showTeacherTab()");
     $("#_easyui_tree_3").attr("onClick", "showStudentTab()");
     $("#_easyui_tree_4").attr("onClick", "showManagerTab()");
+    $("#_easyui_tree_5").attr("onClick", "showRoleTab()");
+
     getTeacherList();
     getStudentList();
+    getManagerMessage();
 })
 //显示教师板块
 function showTeacherTab() {
@@ -24,6 +27,13 @@ function showManagerTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "manager");
+    getManagerMessage();
+}
+//显示角色板块
+function showRoleTab() {
+    var t = $('#mytabs');
+    var tabs = t.tabs('tabs');
+    t.tabs('select', "role");
 }
 //退出登录
 function logout() {
@@ -46,6 +56,7 @@ function logout() {
         }
     });
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////教师
 //新增教师
 function addTeacher() {
     var teacher = {};
@@ -246,7 +257,7 @@ function prepareUpdateTeacher(teacherId) {
         }
     });
 }
-///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////学生
 //获取学生列表
 function getStudentList() {
     $.ajax({
@@ -469,6 +480,86 @@ function prepareUpdateStudent(studentId) {
         complete: function (XMLHttpRequest, textStatus) {
         },
         error: function () {
+        }
+    });
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////管理员
+//获取管理员个人信息
+function getManagerMessage() {
+    var url = "/manager/getLoginManager";
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: url,
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if(data.code==200){
+                $("#update_manager_id").val(data.data.id);
+                $("#update_manager_username").val(data.data.username);
+                $("#update_manager_password").val("");
+                $("#update_manager_phonenumber").val(data.data.phonenumber);
+                $("#update_manager_gender").val(data.data.gender);
+                $("#update_manager_number").val(data.data.number);
+                var d = new Date(data.data.birthday);
+                $("#update_manager_birthday").val(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate());
+                $("#update_manager_nation").val(data.data.nation);
+                $("#update_manager_remarks").val(data.data.remarks);
+                $("#update_manager_idcardnumber").val(data.data.idcardnumber);
+                $("#update_manager_address").val(data.data.address);
+                $("#update_manager_email").val(data.data.email);
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+//修改管理员个人信息
+function updatemanager() {
+    var manager = {};
+    manager.id = $("#update_manager_id").val();
+    manager.username = $("#update_manager_username").val();
+    manager.password = $("#update_manager_password").val();
+    manager.phonenumber = $("#update_manager_phonenumber").val();
+    manager.gender = $("#update_manager_gender").val();
+    manager.number = $("#update_manager_number").val();
+    manager.birthday = $("#update_manager_birthday").val();
+    manager.nation = $("#update_manager_nation").val();
+    manager.remarks = $("#update_manager_remarks").val();
+    manager.idcardnumber = $("#update_manager_idcardnumber").val();
+    manager.address = $("#update_manager_address").val();
+    manager.email = $("#update_manager_email").val();
+    if (!manager.username || !manager.password || !manager.phonenumber || !manager.gender || !manager.number || !manager.birthday || !manager.nation || !manager.remarks || !manager.idcardnumber || !manager.address || !manager.email) {
+        alert("请输入完整信息");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/manager/updateManager",
+        data: JSON.stringify(manager),
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                alert("修改成功");
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            window.location.href = "/html/index_manager.html";
+        },
+        error: function () {
+            window.location.href = "/html/index_manager.html";
         }
     });
 }
