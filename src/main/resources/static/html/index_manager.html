@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>首页</title>
+
+    <link href="../bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/jumbotron.css" rel="stylesheet">
+    <link href="../css/offcanvas.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+    <script type="text/javascript" src="../easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/manager_index.js"></script>
+    <script src="../bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+
+    <style type="text/css">
+        .input-group-lg>.form-control {
+            font-size: 1rem;
+        }
+        .input-group-lg{
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">学习平台管理系统</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()">注销</button>
+        </form>
+    </div>
+</nav>
+<div style="width:100%;">
+    <div style="width:12%;height:500px;float: left">
+        <ul class="easyui-tree">
+            <li>
+                <span>酒店管理系统</span>
+                <ul>
+                    <li id="teacher"><span>教师管理</span></li>
+                    <li id="student"><span>学生管理</span></li>
+                    <li id="manager"><span>个人信息</span></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div style="width:88%;height:800px;float: left">
+        <div class="easyui-tabs" id="mytabs">
+            <div title="teacher" style="padding:10px;">
+                <div style="width:100%;height: 700px;border: 1px dotted black;"  onclick="">
+                    <span style="background-color:#919191;width: 100%;color: white;display: block;padding: 4px;margin-bottom: 4px;">
+                        	<span id="11"></span>年月度旅客住宿统计图
+                    </span>
+                </div>
+            </div>
+            <div title="student" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;border: 1px dotted black;"  onclick="">
+                    <span style="background-color:#919191;width: 100%;color: white;display: block;padding: 4px;margin-bottom: 4px;">
+                        	<span id="22"></span>年月度旅客住宿统计图
+                    </span>
+                </div>
+            </div>
+            <div title="manager" closable="false" style="padding:10px;">
+                <div style="width:100%;height: 700px;border: 1px dotted black;"  onclick="">
+                    <span style="background-color:#919191;width: 100%;color: white;display: block;padding: 4px;margin-bottom: 4px;">
+                        	<span id="33"></span>年月度旅客住宿统计图
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container">
+    <p>&copy; Company 2018-2019</p>
+</footer>
+
+
+</body>
+</html>

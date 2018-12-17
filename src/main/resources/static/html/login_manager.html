@@ -42,7 +42,7 @@
         <span id="logo-text">管理员登录<label>V<span class="logo-dot rotate"></span></label></span>
     </div>
     <div>
-        <form name="loginform" id="loginform" action="../manager/login" method="POST">
+        <form name="loginform" id="loginform">
             <div style="margin-top: 25px; position: relative;">
                 <input id="username" name="username" class="txt" type="text" placeholder='账号' />
             </div>
@@ -52,14 +52,42 @@
             <div style="margin-top: 20px;">
                 <span id="signin_btn" onclick="login()" class="button">立即登录</span>
             </div>
-            <input id="loginsubmit" type="submit" style="display:none;">
         </form>
     </div>
 </div>
 </body>
 <script>
     function login(){
-        $("#loginsubmit").click();
+//        $("#loginsubmit").click();
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            type:"POST",
+            async:true,
+            contentType:"application/x-www-form-urlencoded",
+            url:"/manager/login",
+            data:{
+                "username":username,
+                "password":password
+            },
+            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+            beforeSend:function(){
+            },
+            success:function(data){
+//                data = jQuery.parseJSON(data);
+                console.log(data);
+                if(data.code==100){
+                    window.location.href="/html/index_manager.html";
+                }else{
+                    alert(data.data);
+                }
+            },
+            complete: function(XMLHttpRequest, textStatus){
+            },
+            error: function(){
+                alert("出错了，请稍后再试");
+            }
+        });
     }
 </script>
 </html>
