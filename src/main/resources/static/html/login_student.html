@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>学生登录</title>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="../jquery-3.1.0/jquery-3.1.0.min.js"></script>
+    <script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link href="../bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css" type="text/css"/>
+    <style type="text/css">
+        body {
+            background: url(../img/login.png) repeat center 0px;
+        }
+
+        * {
+            -webkit-box-sizing:inherit;
+            -moz-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">学习平台管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../html/login_student.html">学生登录</a></li>
+                <li><a href="../html/login_teacher.html">教师登录</a></li>
+                <li><a href="../html/login_manager.html">管理员登录</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="page-con">
+    <h1 class="jumbotron-heading"><a href="index.html">学习平台管理系统</a></h1>
+    <div>
+        <span id="logo-text">学生登录<label>V<span class="logo-dot rotate"></span></label></span>
+    </div>
+    <div>
+        <form name="loginform" id="loginform" action="../student/login" method="POST">
+            <div style="margin-top: 25px; position: relative;">
+                <input id="username" name="username" value="" class="txt" type="text" placeholder='账号'/>
+            </div>
+            <div class="login-input" style="margin-top: 20px; position: relative;">
+                <input name="password" id="password" class="txt" type="password" placeholder='密码'/>
+            </div>
+            <div style="margin-top: 20px;">
+                <span id="signin_btn" onclick="login()" class="button">立即登录</span>
+            </div>
+            <input id="loginsubmit" type="submit" style="display:none;">
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    function login() {
+        $("#loginsubmit").click();
+    }
+</script>
+</html>
