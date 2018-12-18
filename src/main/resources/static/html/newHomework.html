@@ -59,11 +59,15 @@
                         <table style="width:100%;height:auto;border-collapse: collapse;border-width: 1px;border-color: #00bbee;">
                             <tr>
                                 <td>作业内容：</td>
-                                <td><textarea name="content" cols="200" rows="20"></textarea></td>
+                                <td><textarea id="content" name="content" cols="200" rows="20" required></textarea></td>
                             </tr>
                             <tr>
                                 <td>截止时间：</td>
-                                <td><input type="date" name="endTime"></td>
+                                <td><input type="date" id="endTime" name="endTime" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <td>顺序：</td>
+                                <td><input type="number" id="sort" name="sort" class="form-control" required></td>
                             </tr>
                             <tr>
                                 <td><input type="hidden" name="id"></td>
@@ -82,6 +86,10 @@
 </footer>
 <script>
     function addhomework() {
+        if(!$("#content").val()||!$("#endTime").val()||!$("#sort").val()){
+            alert("请输入完整信息");
+            return;
+        }
         $("#add_form").ajaxSubmit({
             contentType:"multipart/form-data",
             success:function (data) {
