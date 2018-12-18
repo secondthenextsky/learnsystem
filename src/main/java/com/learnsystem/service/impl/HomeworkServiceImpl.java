@@ -2,8 +2,10 @@ package com.learnsystem.service.impl;
 
 import com.learnsystem.bean.Homework;
 import com.learnsystem.bean.Student;
+import com.learnsystem.common.Result;
 import com.learnsystem.dao.HomeworkDao;
 import com.learnsystem.service.HomeworkService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +47,25 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public void answer(Student student, Homework homework,String answer) {
+    public Result answer(Student student, Homework homework, String answer) {
+        //是否已经提交过了
+        int isSubmit = homeworkDao.isSubmit(student.getId(),homework.getId());
+        if(isSubmit>0){
+            return new Result(Result.HANDLE_FAIL,"你已经提交过了，请勿重复提交");
+        }
+        //查重
+        int count = homeworkDao.countAnswer(homework.getId(),answer);
+        if(count>0){
+            return new Result(Result.HANDLE_FAIL,"请勿抄袭");
+        }
+        //超时检测
+        Date now = new Date();
+        Date endTime = homework.getEndTime();
+        if(now.after(endTime)){
+            return new Result(Result.HANDLE_FAIL,"已经过了截止时间，不能提交作业");
+        }
         homeworkDao.answer(student.getId(),homework.getId(),answer,"",0,new Date());
+        return new Result(Result.HANDLE_SUCCESS,"提交成功");
     }
 
     @Override

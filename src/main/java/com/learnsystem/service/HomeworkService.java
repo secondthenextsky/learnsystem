@@ -3,6 +3,7 @@ package com.learnsystem.service;
 import com.learnsystem.bean.Article;
 import com.learnsystem.bean.Homework;
 import com.learnsystem.bean.Student;
+import com.learnsystem.common.Result;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public interface HomeworkService {
      * @param student
      * @param homework
      */
-    public void answer(Student student, Homework homework,String answer);
+    public Result answer(Student student, Homework homework, String answer);
 
     /**
      * 教师评分

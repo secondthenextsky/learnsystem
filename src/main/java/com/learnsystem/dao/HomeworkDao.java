@@ -77,4 +77,19 @@ public interface HomeworkDao {
      */
     public int score(@Param("studentId")String studentId,@Param("homeworkId")int homeworkId,@Param("opinion")String opinion,@Param("score")float score);
 
+    /**
+     * 查重
+     * @param homeworkId
+     * @param answer
+     * @return
+     */
+    int countAnswer(@Param("homeworkId") int homeworkId, @Param("answer") String answer);
+
+    /**
+     * 该学生是否已经提交过了，避免重复提交
+     * @param studentId
+     * @param homeworkId
+     * @return
+     */
+    int isSubmit(@Param("studentId") String studentId, @Param("homeworkId")int homeworkId);
 }

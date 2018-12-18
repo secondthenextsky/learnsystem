@@ -425,9 +425,11 @@ function getHomeworkList() {
                         "<td>"+item.teacherName+"</td>"+
                         "<td>"+new Date(item.beginTime).toLocaleString()+"</td>"+
                         "<td>"+new Date(item.endTime).toLocaleString()+"</td>"+
-                        "<td><a href=\"homework.html?id="+item.id+"\" target=\"_blank\">查看</a>" +
+                        "<td>" +
+                        "<a href=\"homework.html?id="+item.id+"\" target=\"_blank\">查看</a>" +
                         "|<a href=\"updateHomework.html?id="+item.id+"\" target=\"_blank\">修改</a>" +
-                        "|<a href='javascript:void(0)' onclick='deletehomework(\""+item.id+"\")'>删除</a></td></tr>");
+                        "|<a href='javascript:void(0)' onclick='deletehomework(\""+item.id+"\")'>删除</a>" +
+                        "</td></tr>");
                     tbody.append(tr);
                 });
             }else{
