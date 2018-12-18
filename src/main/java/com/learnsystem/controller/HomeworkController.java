@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/homework")
@@ -127,7 +128,14 @@ public class HomeworkController {
         Student student = (Student)request.getSession().getAttribute(Constant.SESSION_LOGIN_STUDENT);
         Result result = new Result(Result.HANDLE_SUCCESS,homework);
         if(student!=null){
-            result.put("answer",homeworkService.getAnswer(student,homework));
+            //如果是学生查询自己的作业，则给出答案以及老师评分
+            Map<Object,Object> map = homeworkService.getAnswer(student,homework);
+            if(map!=null){
+                result.put("answer",map.get("answer"));
+                result.put("opinion",map.get("opinion"));
+                result.put("score",map.get("score"));
+            }
+
         }
         return result;
     }

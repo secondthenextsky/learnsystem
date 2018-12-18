@@ -62,7 +62,9 @@
                     <p id="content" style="font-size:26px;"></p>
                     <form id="answer_form" action="/homework/answer" method="post">
                         <input type="hidden" name="homeworkId" id="answer_homeworkId"><br/>
-                        <textarea id="answer_content" name="answer" cols="200" rows="20"></textarea><br/>
+                        答　　案：<textarea id="answer_content" name="answer" cols="100" rows="20"></textarea><br/>
+                        批改意见：<textarea id="opinion_content" name="opinion" cols="100" rows="20" disabled></textarea><br/>
+                        分　　数：<input id="score_content" type="number" name="score" disabled><br/>
                         <input id="submitBTN" type="button" value="提交" onclick="answerHomework()" class="btn btn-outline-success my-2 my-sm-0">
                     </form>
                 </div>
@@ -95,7 +97,7 @@
                     var homework = data.data;
                     $("#id").text("id："+homework.id);
                     $("#answer_homeworkId").val(homework.id);
-                    $("#content").text(homework.content);
+                    $("#content").text("作业内容："+homework.content);
                     $("#beginTime").text("创建时间：" + new Date(homework.beginTime).toLocaleString());
                     $("#endTime").text("截止时间：" + new Date(homework.endTime).toLocaleString());
                     $("#teacherName").text("发布者：" + homework.teacherName);
@@ -103,6 +105,12 @@
                         $("#answer_content").text(data.answer);
                         $("#answer_content").attr("disabled","disabled");
                         $("#submitBTN").attr("disabled","disabled");
+                    }
+                    if(data.opinion){
+                        $("#opinion_content").text(data.opinion);
+                    }
+                    if(data.score){
+                        $("#score_content").val(data.score);
                     }
                 }
             },

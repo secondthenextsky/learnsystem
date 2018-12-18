@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>作业详情</title>
+    <title>评分</title>
 
     <link href="../bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/jumbotron.css" rel="stylesheet">
@@ -16,6 +16,7 @@
     <script type="text/javascript" src="../js/teacher_index.js"></script>
     <script src="../bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
     <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.form.js"></script>
 
     <style type="text/css">
         .input-group-lg > .form-control {
@@ -59,10 +60,14 @@
                     <h6 id="beginTime"></h6>
                     <h6 id="endTime"></h6>
                     <p id="content" style="font-size:26px;"></p>
-                    <span id="beforestudentsUL"></span>
-                    <ul id="studentsUL">
-
-                    </ul>
+                    <form id="answer_form" action="/homework/score" method="post">
+                        <input type="hidden" name="homeworkId" id="answer_homeworkId"><br/>
+                        <input type="hidden" name="studentId" id="answer_studentId"><br/>
+                        学生答案：<textarea id="answer_content" name="answer" cols="100" rows="20" disabled></textarea><br/>
+                        批改意见：<textarea id="opinion_content" name="opinion" cols="100" rows="20"></textarea><br/>
+                        分　　数：<input id="score_content" type="number" name="score"><br/>
+                        <input id="submitBTN" type="button" value="提交" onclick="scoreHomework()" class="btn btn-outline-success my-2 my-sm-0">
+                    </form>
                 </div>
             </div>
         </div>
@@ -74,16 +79,17 @@
 </footer>
 <script>
     $(function () {
-        var homeworkId = window.location.search;
-        homeworkId = homeworkId.substring(homeworkId.lastIndexOf("=") + 1);
-        showHomework(homeworkId);
+        var word = window.location.search;//?homeworkId=1&studentId=444
+        var homeworkId = word.substring(word.indexOf("=")+1,word.indexOf("&"));
+        var studentId = word.substring(word.lastIndexOf("=")+1);
+        showHomework(homeworkId,studentId);
     });
-    function showHomework(homeworkId) {
+    function showHomework(homeworkId,studentId) {
         $.ajax({
             type: "POST",
             async: true,
             contentType: "application/json",
-            url: "/homework/getHomeworkAndStudentList?homeworkId=" + homeworkId,
+            url: "/homework/getHomeworkAndStudent?homeworkId=" + homeworkId+"&studentId="+studentId,
             data: {},
             datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
             beforeSend: function () {
@@ -91,23 +97,35 @@
             success: function (data) {
                 if (data.code == 200) {
                     var homework = data.data;
-                    $("#id").text("id："+homework.id);
+                    $("#id").text("id："+homeworkId);
+                    $("#answer_homeworkId").val(homeworkId);
+                    $("#answer_studentId").val(studentId);
                     $("#content").text(homework.content);
                     $("#beginTime").text("创建时间：" + new Date(homework.beginTime).toLocaleString());
                     $("#endTime").text("截止时间：" + new Date(homework.endTime).toLocaleString());
                     $("#teacherName").text("发布者：" + homework.teacherName);
-                    if(data.students){
-                        $("#beforestudentsUL").text("已经提交的学生：");
-                        $.each(data.students, function (i, item) {
-                            var li = $("<li><a href='scoreHomework.html?homeworkId=" + homework.id + "&studentId="+item.id+"' target='_blank'>" + item.username + "</a></li>");
-                            $("#studentsUL").append(li);
-                        });
-                    }
+                    $("#answer_content").text(data.answer);
                 }
             },
             complete: function (XMLHttpRequest, textStatus) {
             },
             error: function () {
+            }
+        });
+    }
+    function scoreHomework() {
+        if(!$("#opinion_content").val()||!$("#score_content").val()){
+            alert("请输入评分项");
+            return;
+        }
+        $("#answer_form").ajaxSubmit({
+            success:function (data) {
+                if(data.code==200){
+                    alert("提交成功");
+                    window.close();
+                }else{
+                    alert(data.data);
+                }
             }
         });
     }

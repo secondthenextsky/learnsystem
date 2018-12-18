@@ -7,6 +7,7 @@ import com.learnsystem.common.Result;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HomeworkService {
     /**
@@ -83,7 +84,7 @@ public interface HomeworkService {
      * @param homework
      * @return
      */
-    String getAnswer(Student student, Homework homework);
+    Map<Object,Object> getAnswer(Student student, Homework homework);
 
     /**
      * 获取已经提交过作业的学生列表

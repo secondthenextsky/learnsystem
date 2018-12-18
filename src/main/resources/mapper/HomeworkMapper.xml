@@ -75,8 +75,8 @@
         where homeworkId=#{homeworkId} and studentId=#{studentId} and score>=0
     </select>
 
-    <select id="getAnswer" resultType="java.lang.String">
-        select answer from student_homework
+    <select id="getAnswer" resultType="java.util.Map">
+        select answer,opinion,score from student_homework
         where homeworkId=#{homeworkId} and studentId=#{studentId}
     </select>
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HomeworkServiceImpl implements HomeworkService {
@@ -92,7 +93,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public String getAnswer(Student student, Homework homework) {
+    public Map<Object,Object> getAnswer(Student student, Homework homework) {
         return homeworkDao.getAnswer(student.getId(),homework.getId());
     }
 
