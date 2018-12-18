@@ -92,11 +92,12 @@ public class ArticleController {
 
     @LoginNeed
     @RequestMapping("/update")
-    public Result update(@RequestParam("id")int id,@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
+    public Result update(@RequestParam("id")int id,@RequestParam("sort")int sort,@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
         Article article = new Article();
         article.setTitle(title);
         article.setTextContent(textContent);
         article.setId(id);
+        article.setSort(sort);
         Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
         article.setTeacherId(teacher.getId());
         article.setTeacherName(teacher.getUsername());

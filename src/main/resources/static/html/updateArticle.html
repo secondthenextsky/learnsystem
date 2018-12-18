@@ -71,6 +71,10 @@
                                 <td ><input id="update_createTime" type="text" name="createTime" style="width:800px;text-align: center;" disabled></td>
                             </tr>
                             <tr>
+                                <td >顺序：</td>
+                                <td ><input id="update_sort" type="number" name="sort" ></td>
+                            </tr>
+                            <tr>
                                 <td>文字内容：</td>
                                 <td><textarea id="update_textContent" name="textContent" cols="200" rows="20"></textarea></td>
                             </tr>
@@ -119,6 +123,7 @@
                     $("#update_title").val(article.title);
                     $("#update_textContent").val(article.textContent);
                     $("#update_createTime").val(new Date(article.createTime).toLocaleString());
+                    $("#update_sort").val(article.sort);
                     $("#update_teacherName").val(article.teacherName);
                     $.each(article.attachments, function (i, item) {
                         var li = $("<li><a href='/article/getAttachment?id=" + item.id + "' target='_blank'>" + item.fileName + "</a></li>");
