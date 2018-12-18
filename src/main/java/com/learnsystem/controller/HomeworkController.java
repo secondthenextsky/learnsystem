@@ -6,6 +6,7 @@ import com.learnsystem.bean.Teacher;
 import com.learnsystem.common.Constant;
 import com.learnsystem.common.Result;
 import com.learnsystem.service.HomeworkService;
+import com.learnsystem.service.StudentService;
 import com.learnsystem.service.TeacherService;
 import com.learnsystem.utils.LoginNeed;
 import com.sun.org.apache.regexp.internal.RE;
@@ -29,6 +30,9 @@ public class HomeworkController {
     private TeacherService teacherService;
     @Autowired
     private HomeworkService homeworkService;
+    @Autowired
+    private StudentService studentService;
+
 
     /**
      * 新增作业
@@ -128,6 +132,21 @@ public class HomeworkController {
         return result;
     }
 
+    @LoginNeed
+    @RequestMapping("/getHomeworkAndStudent")
+    public Result getHomeworkAndStudent(@RequestParam("homeworkId") int homeworkId,@RequestParam("studentId")String studentId,HttpServletRequest request) {
+        Homework homework = homeworkService.getById(homeworkId);
+        Student student = new Student();
+        student.setId(studentId);
+        student = studentService.get(student).get(0);
+        Result result = new Result(Result.HANDLE_SUCCESS,homework);
+        if(student!=null){
+            result.put("answer",homeworkService.getAnswer(student,homework));
+            result.put("student",student);
+        }
+        return result;
+    }
+
     /**
      * 获取课程详情以及已经提交的学生列表
      * @param homeworkId
@@ -167,5 +186,20 @@ public class HomeworkController {
         Student student = (Student) request.getSession().getAttribute(Constant.SESSION_LOGIN_STUDENT);
         Homework homework = homeworkService.getById(homeworkId);
         return homeworkService.answer(student, homework, answer);
+    }
+
+    /**
+     * 批改作业
+     */
+    @LoginNeed
+    @RequestMapping("/score")
+    public Result score(@Param("homeworkId") int homeworkId,@Param("studentId") String studentId, @RequestParam("score") float score, @Param("opinion")String opinion, HttpServletRequest request) {
+        Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
+        Student student = new Student();
+        student.setId(studentId);
+        student = studentService.get(student).get(0);
+        Homework homework = homeworkService.getById(homeworkId);
+        homeworkService.score(student,homework,opinion,score);
+        return new Result(Result.HANDLE_SUCCESS,"批改成功");
     }
 }
