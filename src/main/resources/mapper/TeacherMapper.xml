@@ -7,11 +7,11 @@
     </insert>
 
     <delete id="delete" parameterType="java.lang.String">
-        delete from Teacher where id=#{id}
+        delete from teacher where id=#{id}
     </delete>
 
     <update id="update" parameterType="Teacher">
-        update Teacher
+        update teacher
         <set>
             <if test="username!=null and username!=''">
                 username=#{username},
@@ -51,7 +51,7 @@
     </update>
 
     <select id="get" parameterType="Teacher" resultType="Teacher">
-        select * from Teacher
+        select * from teacher
         <where>
             <if test="id!=null and id!=''">
                 and id=#{id}
