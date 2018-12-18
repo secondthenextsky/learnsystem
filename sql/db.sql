@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `article` (
   `teacherName` varchar(50) DEFAULT NULL COMMENT '教师姓名',
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='课程章节';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='课程章节';
 
--- 正在导出表  learnsystem.article 的数据：~11 rows (大约)
+-- 正在导出表  learnsystem.article 的数据：~12 rows (大约)
 DELETE FROM `article`;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
 INSERT INTO `article` (`id`, `sort`, `title`, `textContent`, `teacherId`, `teacherName`, `createTime`) VALUES
@@ -44,7 +44,8 @@ INSERT INTO `article` (`id`, `sort`, `title`, `textContent`, `teacherId`, `teach
 	(10, 0, '111', '1111111111', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:36:41'),
 	(11, 0, '2222', '222222222222222', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:37:03'),
 	(12, 0, '4', '44', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:56:41'),
-	(13, 0, '1111', '11111', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 03:45:22');
+	(13, 0, '1111', '11111', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 03:45:22'),
+	(14, 0, '888', '0999', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 05:00:42');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.attachment 结构
@@ -78,11 +79,16 @@ CREATE TABLE IF NOT EXISTS `homework` (
   `teacherName` varchar(50) NOT NULL COMMENT '发布者姓名',
   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '顺序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='作业';
 
--- 正在导出表  learnsystem.homework 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.homework 的数据：~4 rows (大约)
 DELETE FROM `homework`;
 /*!40000 ALTER TABLE `homework` DISABLE KEYS */;
+INSERT INTO `homework` (`id`, `content`, `beginTime`, `endTime`, `teacherId`, `teacherName`, `sort`) VALUES
+	(1, '第1个作业222', '2018-12-19 04:19:16', '2018-12-20 00:00:00', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', 2),
+	(2, '第2个作业', '2018-12-19 04:19:16', '2018-12-29 04:19:16', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', 1),
+	(4, '第4个作业', '2018-12-19 04:19:16', '2018-12-29 00:00:00', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', 0),
+	(5, '新建的作业', '2018-12-19 04:57:14', '2018-11-20 00:00:00', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', 1);
 /*!40000 ALTER TABLE `homework` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.manager 结构
@@ -177,10 +183,11 @@ CREATE TABLE IF NOT EXISTS `student` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  learnsystem.student 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.student 的数据：~2 rows (大约)
 DELETE FROM `student`;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
 INSERT INTO `student` (`id`, `username`, `password`, `gender`, `number`, `birthday`, `nation`, `college`, `major`, `idcardnumber`, `address`, `phonenumber`, `email`, `intendtime`, `remarks`) VALUES
+	('a660e6f2-d30e-4025-b5a3-98f9ccfd688f', 'sky2', '4QrcOUm6Wau+VuBX8g+IPg==', 'nan', '00002', '2018-12-14 08:00:00', 'han', '工学院', '计算机', '441516616161616161', 'shenzhen', '222', '123@qq.com', '2018-12-19 08:00:00', '没有'),
 	('sdfasdf', 'sky', '4QrcOUm6Wau+VuBX8g+IPg==', '男vv', '12344411', '2018-12-17 08:00:00', '汉族', '商学院233', '数学专业233', '141312121212121212', '夏威夷233', '12131313131', '123@qq.com', '2018-12-18 08:00:00', '无');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 
@@ -192,14 +199,20 @@ CREATE TABLE IF NOT EXISTS `student_homework` (
   `homeworkId` int(11) NOT NULL COMMENT '作业id',
   `answer` text NOT NULL COMMENT '学生作答',
   `opinion` text NOT NULL COMMENT '教师批改意见',
-  `score` float NOT NULL COMMENT '分数',
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
+  `score` float NOT NULL DEFAULT '-1' COMMENT '分数',
+  `submitTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生-作业关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='学生-作业关联表';
 
--- 正在导出表  learnsystem.student_homework 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.student_homework 的数据：~2 rows (大约)
 DELETE FROM `student_homework`;
 /*!40000 ALTER TABLE `student_homework` DISABLE KEYS */;
+INSERT INTO `student_homework` (`id`, `studentId`, `homeworkId`, `answer`, `opinion`, `score`, `submitTime`) VALUES
+	(1, 'sdfasdf', 1, '按时', '还可以吧。', 1, '2018-12-19 05:38:32'),
+	(2, 'a660e6f2-d30e-4025-b5a3-98f9ccfd688f', 1, '按时2', '2222', 2, '2018-12-19 06:05:39'),
+	(3, 'a660e6f2-d30e-4025-b5a3-98f9ccfd688f', 2, '2222', '', -1, '2018-12-19 06:53:19'),
+	(4, 'sdfasdf', 2, '4334', '', -1, '2018-12-19 06:53:31'),
+	(5, 'sdfasdf', 4, '121212121', '0099', 33, '2018-12-19 07:43:33');
 /*!40000 ALTER TABLE `student_homework` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.teacher 结构
@@ -224,8 +237,8 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 DELETE FROM `teacher`;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
 INSERT INTO `teacher` (`id`, `username`, `password`, `phonenumber`, `gender`, `number`, `birthday`, `nation`, `remarks`, `idcardnumber`, `address`, `email`) VALUES
-	('45a78722-2863-4a57-b0a2-97b5277cae1e', 'asdf111', '4QrcOUm6Wau+VuBX8g+IPg==', 'asdf', 'asdf', 'asdf', '2018-12-21 08:00:00', 'a11111111111111111', 'x11', 'd1111111111111111', 'd11111111111111111', 'x11'),
-	('6f8b91ba-3612-432f-9a8e-413ba1f8f742', 't333', '4QrcOUm6Wau+VuBX8g+IPg==', 'sfdad', '男233', '123', '2018-12-19 08:00:00', '汉族', '无', '456', '789', '000'),
+	('45a78722-2863-4a57-b0a2-97b5277cae1e', 't3', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', 'nv', 'asdf', '2018-12-21 08:00:00', 'a11111111111111111', 'x11', 'd1111111111111111', 'd11111111111111111', 'x11'),
+	('6f8b91ba-3612-432f-9a8e-413ba1f8f742', 't2', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', '男233', '123', '2018-12-19 08:00:00', '汉族', '无', '456', '789', '000'),
 	('7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '4QrcOUm6Wau+VuBX8g+IPg==', '123412341234', '男2', '134134', '2018-12-17 08:00:00', '汉族', '无233', '114422323', 'add', '55@66.com11');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 
