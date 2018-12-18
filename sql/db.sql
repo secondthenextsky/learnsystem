@@ -28,20 +28,23 @@ CREATE TABLE IF NOT EXISTS `article` (
   `teacherName` varchar(50) DEFAULT NULL COMMENT '教师姓名',
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='课程章节';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='课程章节';
 
--- 正在导出表  learnsystem.article 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.article 的数据：~11 rows (大约)
 DELETE FROM `article`;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
 INSERT INTO `article` (`id`, `sort`, `title`, `textContent`, `teacherId`, `teacherName`, `createTime`) VALUES
-	(1, 0, '啊啊啊', '大发送到发阿士大夫', '7fad3404-cbb5-476a-943f-a3f1a24d93df', '呵呵', '2018-12-18 05:11:19'),
-	(2, 1, '啊啊啊2', '大发送到发阿士大夫222', '7fad3404-cbb5-476a-943f-a3f1a24d93df', '呵呵', '2018-12-18 05:11:19'),
 	(3, 0, 'asd', '阿萨德撒地方', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:15:22'),
-	(4, 0, 'asd', '阿萨德撒地方', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:17:16'),
-	(5, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:21:45'),
-	(6, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:23:02'),
+	(4, 0, 'asd', '阿萨德撒地方2222222', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:17:16'),
+	(5, 4, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:21:45'),
+	(6, 3, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:23:02'),
 	(7, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:24:00'),
-	(8, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:25:26');
+	(8, 0, '安安定定', '阿萨达阿士大夫阿士大夫阿士大夫阿士大夫阿萨达发送到发送到发斯蒂芬阿士大夫阿萨达发斯蒂芬阿士大夫阿萨达阿萨达', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-18 06:25:26'),
+	(9, 0, 'sd', '少的地方水电费', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 01:53:31'),
+	(10, 0, '111', '1111111111', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:36:41'),
+	(11, 0, '2222', '222222222222222', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:37:03'),
+	(12, 0, '4', '44', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 02:56:41'),
+	(13, 0, '1111', '11111', '7fad3404-cbb5-476a-943f-a3f1a24d93df', 't1', '2018-12-19 03:45:22');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.attachment 结构
@@ -51,19 +54,36 @@ CREATE TABLE IF NOT EXISTS `attachment` (
   `fileName` varchar(100) NOT NULL DEFAULT '0' COMMENT '文件名',
   `articleId` int(11) NOT NULL DEFAULT '0' COMMENT '所属课程章节id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='课程附件';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='课程附件';
 
--- 正在导出表  learnsystem.attachment 的数据：~0 rows (大约)
+-- 正在导出表  learnsystem.attachment 的数据：~5 rows (大约)
 DELETE FROM `attachment`;
 /*!40000 ALTER TABLE `attachment` DISABLE KEYS */;
 INSERT INTO `attachment` (`id`, `fileName`, `articleId`) VALUES
-	(1, '1.txt', 1),
-	(2, '2.txt', 1),
-	(3, '3.txt', 1),
-	(4, '1.zip', 2),
 	(5, '1545085525716捕获.PNG', 8),
-	(6, '1545085525718显卡.PNG', 8);
+	(6, '1545085525718显卡.PNG', 8),
+	(11, '1545155610577', 9),
+	(12, '1545158200552详细报表.txt', 10),
+	(13, '1545158223124详细报表.txt', 11);
 /*!40000 ALTER TABLE `attachment` ENABLE KEYS */;
+
+-- 导出  表 learnsystem.homework 结构
+DROP TABLE IF EXISTS `homework`;
+CREATE TABLE IF NOT EXISTS `homework` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL COMMENT '作业内容',
+  `beginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `endTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '截止提交时间',
+  `teacherId` varchar(50) NOT NULL COMMENT '发布者id',
+  `teacherName` varchar(50) NOT NULL COMMENT '发布者姓名',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '顺序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业';
+
+-- 正在导出表  learnsystem.homework 的数据：~0 rows (大约)
+DELETE FROM `homework`;
+/*!40000 ALTER TABLE `homework` DISABLE KEYS */;
+/*!40000 ALTER TABLE `homework` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.manager 结构
 DROP TABLE IF EXISTS `manager`;
@@ -161,8 +181,26 @@ CREATE TABLE IF NOT EXISTS `student` (
 DELETE FROM `student`;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
 INSERT INTO `student` (`id`, `username`, `password`, `gender`, `number`, `birthday`, `nation`, `college`, `major`, `idcardnumber`, `address`, `phonenumber`, `email`, `intendtime`, `remarks`) VALUES
-	('sdfasdf', 'sky2', '4QrcOUm6Wau+VuBX8g+IPg==', '男vv', '12344411', '2018-12-17 08:00:00', '汉族', '商学院', '数学专业', '141312121212121212', '夏威夷', '12131313131', '123@qq.com', '2018-12-17 08:00:00', '无');
+	('sdfasdf', 'sky', '4QrcOUm6Wau+VuBX8g+IPg==', '男vv', '12344411', '2018-12-17 08:00:00', '汉族', '商学院233', '数学专业233', '141312121212121212', '夏威夷233', '12131313131', '123@qq.com', '2018-12-18 08:00:00', '无');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
+
+-- 导出  表 learnsystem.student_homework 结构
+DROP TABLE IF EXISTS `student_homework`;
+CREATE TABLE IF NOT EXISTS `student_homework` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `studentId` varchar(50) NOT NULL COMMENT '学生id',
+  `homeworkId` int(11) NOT NULL COMMENT '作业id',
+  `answer` text NOT NULL COMMENT '学生作答',
+  `opinion` text NOT NULL COMMENT '教师批改意见',
+  `score` float NOT NULL COMMENT '分数',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='学生-作业关联表';
+
+-- 正在导出表  learnsystem.student_homework 的数据：~0 rows (大约)
+DELETE FROM `student_homework`;
+/*!40000 ALTER TABLE `student_homework` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_homework` ENABLE KEYS */;
 
 -- 导出  表 learnsystem.teacher 结构
 DROP TABLE IF EXISTS `teacher`;

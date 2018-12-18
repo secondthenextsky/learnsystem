@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learnsystem.dao.HomeworkDao">
+    <insert id="add" parameterType="Homework" useGeneratedKeys="true" keyProperty="id">
+        insert into homework(content,beginTime,endTime,teacherId,teacherName,sort)
+        value(#{content},#{beginTime},#{endTime},#{teacherId},#{teacherName},#{sort})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from homework where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="Homework">
+        update homework
+        <set>
+            <if test="content!=null and content!=''">
+                content=#{content},
+            </if>
+            <if test="beginTime!=null">
+                beginTime=#{beginTime},
+            </if>
+            <if test="endTime!=null">
+                endTime=#{endTime},
+            </if>
+            <if test="teacherId!=null and teacherId!=''">
+                teacherId=#{teacherId},
+            </if>
+            <if test="teacherName!=null and teacherName!=''">
+                teacherName=#{teacherName},
+            </if>
+            <if test="sort!=null and sort!=''">
+                sort=#{sort},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="getById" parameterType="int" resultType="Homework">
+        select * from homework where id=#{id}
+    </select>
+
+    <select id="getAll" resultType="Homework">
+        select * from homework order by sort,beginTime
+    </select>
+
+    <select id="getAllByTeacher" parameterType="java.lang.String" resultType="Homework">
+        select * from homework
+        where teacherId=#{teacherId}
+        order by sort,beginTime
+    </select>
+
+</mapper>
