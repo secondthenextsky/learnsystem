@@ -4,6 +4,7 @@ import com.learnsystem.bean.Article;
 import com.learnsystem.bean.Homework;
 import com.learnsystem.bean.Student;
 import com.learnsystem.common.Result;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -59,4 +60,28 @@ public interface HomeworkService {
      * @param score
      */
     public void score(Student student,Homework homework,String opinion,float score);
+
+    /**
+     * 该学生是否已经提交过了，避免重复提交
+     * @param student
+     * @param homework
+     * @return
+     */
+    public boolean isSubmit(Student student,Homework homework);
+
+    /**
+     * 是否已批改
+     * @param student
+     * @param homework
+     * @return
+     */
+    public boolean isScored(Student student, Homework homework);
+
+    /**
+     * 获取该学生在该题的答案
+     * @param student
+     * @param homework
+     * @return
+     */
+    String getAnswer(Student student, Homework homework);
 }

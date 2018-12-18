@@ -1,6 +1,8 @@
 package com.learnsystem.common;
 
-public class Result<T> {
+import java.util.HashMap;
+
+public class Result<T> extends HashMap{
     public static final int LOGIN_SUCCESS = 100;
     public static final int LOGIN_FAIL = 101;
     public static final int HANDLE_SUCCESS = 200;
@@ -12,6 +14,8 @@ public class Result<T> {
     public Result(int code, T data) {
         this.code = code;
         this.data = data;
+        this.put("code",code);
+        this.put("data",data);
     }
 
     public int getCode() {
@@ -20,6 +24,7 @@ public class Result<T> {
 
     public void setCode(int code) {
         this.code = code;
+        this.put("code",code);
     }
 
     public T getData() {
@@ -28,6 +33,7 @@ public class Result<T> {
 
     public void setData(T data) {
         this.data = data;
+        this.put("data",data);
     }
 
     @Override

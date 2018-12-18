@@ -213,6 +213,7 @@ function getHomeworkList() {
                         "<td>"+item.teacherName+"</td>"+
                         "<td>"+new Date(item.beginTime).toLocaleString()+"</td>"+
                         "<td>"+new Date(item.endTime).toLocaleString()+"</td>"+
+                        "<td>"+item.status+"</td>"+
                         "<td><a href=\"submithomework.html?id="+item.id+"\" target=\"_blank\">查看</a></td></tr>");
                     tbody.append(tr);
                 });

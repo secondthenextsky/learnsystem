@@ -92,4 +92,20 @@ public interface HomeworkDao {
      * @return
      */
     int isSubmit(@Param("studentId") String studentId, @Param("homeworkId")int homeworkId);
+
+    /**
+     *
+     * @param studentId
+     * @param homeworkId
+     * @return
+     */
+    int isScored(@Param("studentId") String studentId, @Param("homeworkId")int homeworkId);
+
+    /**
+     * 获取学生的答案
+     * @param id
+     * @param id1
+     * @return
+     */
+    String getAnswer(@Param("studentId") String studentId, @Param("homeworkId")int homeworkId);
 }

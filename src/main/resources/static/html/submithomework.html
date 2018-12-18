@@ -63,7 +63,7 @@
                     <form id="answer_form" action="/homework/answer" method="post">
                         <input type="hidden" name="homeworkId" id="answer_homeworkId"><br/>
                         <textarea id="answer_content" name="answer" cols="200" rows="20"></textarea><br/>
-                        <input type="button" value="提交" onclick="answerHomework()">
+                        <input id="submitBTN" type="button" value="提交" onclick="answerHomework()" class="btn btn-outline-success my-2 my-sm-0">
                     </form>
                 </div>
             </div>
@@ -99,6 +99,11 @@
                     $("#beginTime").text("创建时间：" + new Date(homework.beginTime).toLocaleString());
                     $("#endTime").text("截止时间：" + new Date(homework.endTime).toLocaleString());
                     $("#teacherName").text("发布者：" + homework.teacherName);
+                    if(data.answer){
+                        $("#answer_content").text(data.answer);
+                        $("#answer_content").attr("disabled","disabled");
+                        $("#submitBTN").attr("disabled","disabled");
+                    }
                 }
             },
             complete: function (XMLHttpRequest, textStatus) {

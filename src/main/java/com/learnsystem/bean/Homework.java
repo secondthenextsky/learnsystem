@@ -32,6 +32,18 @@ public class Homework {
      * 顺序
      */
     private int sort;
+    /**
+     * 状态：未提交，已提交，已批改
+     */
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -99,6 +111,7 @@ public class Homework {
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", sort=" + sort +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

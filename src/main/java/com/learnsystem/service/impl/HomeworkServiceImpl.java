@@ -64,7 +64,7 @@ public class HomeworkServiceImpl implements HomeworkService {
         if(now.after(endTime)){
             return new Result(Result.HANDLE_FAIL,"已经过了截止时间，不能提交作业");
         }
-        homeworkDao.answer(student.getId(),homework.getId(),answer,"",0,new Date());
+        homeworkDao.answer(student.getId(),homework.getId(),answer,"",-1,new Date());
         return new Result(Result.HANDLE_SUCCESS,"提交成功");
     }
 
@@ -73,5 +73,27 @@ public class HomeworkServiceImpl implements HomeworkService {
         homeworkDao.score(student.getId(),homework.getId(),opinion,score);
     }
 
+    @Override
+    public boolean isSubmit(Student student, Homework homework) {
+        if(homeworkDao.isSubmit(student.getId(),homework.getId())>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isScored(Student student, Homework homework) {
+        if(homeworkDao.isScored(student.getId(),homework.getId())>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public String getAnswer(Student student, Homework homework) {
+        return homeworkDao.getAnswer(student.getId(),homework.getId());
+    }
 
 }

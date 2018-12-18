@@ -95,14 +95,37 @@ public class HomeworkController {
     @RequestMapping("/getAll")
     public Result getAll(HttpServletRequest request) {
         List<Homework> homeworks = homeworkService.getAll();
+        Student student = (Student)request.getSession().getAttribute(Constant.SESSION_LOGIN_STUDENT);
+        if(student!=null){
+            //学生登录了，则给homework加状态信息
+            if(homeworks!=null&&homeworks.size()>0){
+                for(Homework homework:homeworks){
+                    if(!homeworkService.isSubmit(student,homework)){
+                        homework.setStatus("未提交");
+                    }else {
+                        //已提交
+                        homework.setStatus("已提交");
+                        //已批改
+                        if(homeworkService.isScored(student,homework)){
+                            homework.setStatus("已批改");
+                        }
+                    }
+                }
+            }
+        }
         return new Result(Result.HANDLE_SUCCESS, homeworks);
     }
 
     @LoginNeed
     @RequestMapping("/get")
-    public Result get(@RequestParam("homeworkId") int homeworkId) {
+    public Result get(@RequestParam("homeworkId") int homeworkId,HttpServletRequest request) {
         Homework homework = homeworkService.getById(homeworkId);
-        return new Result(Result.HANDLE_SUCCESS, homework);
+        Student student = (Student)request.getSession().getAttribute(Constant.SESSION_LOGIN_STUDENT);
+        Result result = new Result(Result.HANDLE_SUCCESS,homework);
+        if(student!=null){
+            result.put("answer",homeworkService.getAnswer(student,homework));
+        }
+        return result;
     }
 
     @LoginNeed
