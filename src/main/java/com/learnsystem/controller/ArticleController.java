@@ -8,6 +8,7 @@ import com.learnsystem.common.Result;
 import com.learnsystem.dao.AttachmentDao;
 import com.learnsystem.service.ArticleService;
 import com.learnsystem.service.TeacherService;
+import com.learnsystem.utils.LoginNeed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,7 @@ public class ArticleController {
      * @param request
      * @return
      */
+    @LoginNeed
     @RequestMapping("/add")
     public Result add(@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
         Article article = new Article();
@@ -88,6 +90,7 @@ public class ArticleController {
         return new Result(Result.HANDLE_SUCCESS,"创建成功");
     }
 
+    @LoginNeed
     @RequestMapping("/update")
     public Result update(@RequestParam("id")int id,@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
         Article article = new Article();
@@ -140,6 +143,7 @@ public class ArticleController {
      * @param request
      * @return
      */
+    @LoginNeed
     @RequestMapping("/getAllByLoginTeacher")
     public Result getAllByLoginTeacher(HttpServletRequest request){
         Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
@@ -152,17 +156,21 @@ public class ArticleController {
      * @param request
      * @return
      */
+    @LoginNeed
     @RequestMapping("/getAll")
     public Result getAll(HttpServletRequest request){
         List<Article> articles = articleService.getAll();
         return new Result(Result.HANDLE_SUCCESS,articles);
     }
 
+    @LoginNeed
     @RequestMapping("/get")
     public Result get(@RequestParam("articleId")int articleId){
         Article article = articleService.getById(articleId);
         return new Result(Result.HANDLE_SUCCESS,article);
     }
+
+    @LoginNeed
     @RequestMapping("/getAttachment")
     public void getAttachment(@RequestParam("id")int id, HttpServletResponse response){
         Attachment attachment = attachmentDao.getById(id);

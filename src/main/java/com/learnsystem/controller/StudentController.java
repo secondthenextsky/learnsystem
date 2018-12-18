@@ -5,6 +5,7 @@ import com.learnsystem.bean.Student;
 import com.learnsystem.common.Constant;
 import com.learnsystem.common.Result;
 import com.learnsystem.service.StudentService;
+import com.learnsystem.utils.LoginNeed;
 import com.learnsystem.utils.MD5Uitls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +43,7 @@ public class StudentController {
         return new Result(Result.HANDLE_SUCCESS, "退出成功");
     }
 
+    @LoginNeed
     @RequestMapping("/updateStudent")
     public Result updateStudent(@RequestBody Student student) {
         if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
@@ -51,6 +53,7 @@ public class StudentController {
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 
+    @LoginNeed
     @RequestMapping("/addStudent")
     public Result addStudent(@RequestBody Student student) {
         if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
@@ -60,6 +63,7 @@ public class StudentController {
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 
+    @LoginNeed
     @RequestMapping("/get")
     public Result get(@RequestParam("id")String id) {
         Student student = new Student();
@@ -69,6 +73,7 @@ public class StudentController {
         return new Result(Result.HANDLE_SUCCESS, student);
     }
 
+    @LoginNeed
     @RequestMapping("/getAll")
     public Result getAll(){
         List<Student> students = studentService.get(new Student());

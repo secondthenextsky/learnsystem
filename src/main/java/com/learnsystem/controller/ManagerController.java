@@ -9,6 +9,7 @@ import com.learnsystem.common.Result;
 import com.learnsystem.dao.TeacherDao;
 import com.learnsystem.service.ManagerService;
 import com.learnsystem.service.TeacherService;
+import com.learnsystem.utils.LoginNeed;
 import com.learnsystem.utils.MD5Uitls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +49,7 @@ public class ManagerController {
         return new Result(Result.HANDLE_SUCCESS, "退出成功");
     }
 
+    @LoginNeed
     @RequestMapping("/updateManager")
     public Result updateManager(@RequestBody Manager manager,HttpServletRequest request) {
         if(manager.getPassword()!=null&&!manager.getPassword().trim().equals("")){
@@ -58,6 +60,7 @@ public class ManagerController {
     }
 
     //修改当前登录的管理员
+    @LoginNeed
     @RequestMapping("/updateLoginManager")
     public Result updateLoginManager(@RequestBody Manager manager,HttpServletRequest request) {
         if(manager.getPassword()!=null&&!manager.getPassword().trim().equals("")){
@@ -69,12 +72,14 @@ public class ManagerController {
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 
+    @LoginNeed
     @RequestMapping("/updateRole")
     public Result updateRole(String userId, List<Integer> roleIdList) {
         managerService.updateRoles(userId, roleIdList);
         return new Result(Result.HANDLE_SUCCESS, "更新角色成功");
     }
 
+    @LoginNeed
     @RequestMapping("/get")
     public Result get(@RequestParam("id")String id) {
         Manager manager = new Manager();
@@ -84,12 +89,14 @@ public class ManagerController {
         return new Result(Result.HANDLE_SUCCESS, manager);
     }
 
+    @LoginNeed
     @RequestMapping("/getLoginManager")
     public Result getLoginManager(HttpServletRequest request) {
         Object manager = request.getSession().getAttribute(Constant.SESSION_LOGIN_MANAGER);
         return new Result(Result.HANDLE_SUCCESS, manager);
     }
 
+    @LoginNeed
     @RequestMapping("/getAll")
     public Result getAll(){
         List<Manager> managers = managerService.get(new Manager());

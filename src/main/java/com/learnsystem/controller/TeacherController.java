@@ -7,6 +7,7 @@ import com.learnsystem.common.Constant;
 import com.learnsystem.common.Result;
 import com.learnsystem.service.ManagerService;
 import com.learnsystem.service.TeacherService;
+import com.learnsystem.utils.LoginNeed;
 import com.learnsystem.utils.MD5Uitls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +45,7 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, "退出成功");
     }
 
+    @LoginNeed
     @RequestMapping("/get")
     public Result get(@RequestParam("id")String id) {
         Teacher teacher = new Teacher();
@@ -53,12 +55,14 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, teacher);
     }
 
+    @LoginNeed
     @RequestMapping("/getLoginTeacher")
     public Result getLoginTeacher(HttpServletRequest request) {
         Object teacher = request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
         return new Result(Result.HANDLE_SUCCESS, teacher);
     }
 
+    @LoginNeed
     @RequestMapping("/getAll")
     public Result getAll() {
         List<Teacher> teachers = teacherService.get(new Teacher());
@@ -68,6 +72,7 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, teachers);
     }
 
+    @LoginNeed
     @RequestMapping("/updateTeacher")
     public Result updateTeacher(@RequestBody Teacher teacher) {
         if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
@@ -78,6 +83,7 @@ public class TeacherController {
     }
 
     //修改当前登录的教师
+    @LoginNeed
     @RequestMapping("/updateLoginTeacher")
     public Result updateLoginTeacher(@RequestBody Teacher teacher,HttpServletRequest request) {
         if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
@@ -89,6 +95,7 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, "更新成功");
     }
 
+    @LoginNeed
     @RequestMapping("/addTeacher")
     public Result addTeacher(@RequestBody Teacher teacher) {
         if(teacher.getPassword()!=null&&!teacher.getPassword().trim().equals("")){
@@ -98,6 +105,7 @@ public class TeacherController {
         return new Result(Result.HANDLE_SUCCESS, "添加成功");
     }
 
+    @LoginNeed
     @RequestMapping("/deleteTeacher")
     public Result deleteTeacher(@RequestParam("teacherId")String teacherId) {
         teacherService.delete(teacherId);
