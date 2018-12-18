@@ -44,6 +44,26 @@ public class StudentController {
     }
 
     @LoginNeed
+    @RequestMapping("/getLoginStudent")
+    public Result getLoginStudent(HttpServletRequest request) {
+        Object student = request.getSession().getAttribute(Constant.SESSION_LOGIN_STUDENT);
+        return new Result(Result.HANDLE_SUCCESS, student);
+    }
+
+    //修改当前登录的学生
+    @LoginNeed
+    @RequestMapping("/updateLoginStudent")
+    public Result updateLoginTeacher(@RequestBody Student student,HttpServletRequest request) {
+        if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
+            student.setPassword(MD5Uitls.md5(student.getPassword()));
+        }
+        studentService.update(student);
+        student.setPassword(null);
+        request.getSession().setAttribute(Constant.SESSION_LOGIN_STUDENT,student);
+        return new Result(Result.HANDLE_SUCCESS, "更新成功");
+    }
+    
+    @LoginNeed
     @RequestMapping("/updateStudent")
     public Result updateStudent(@RequestBody Student student) {
         if(student.getPassword()!=null&&!student.getPassword().trim().equals("")){
