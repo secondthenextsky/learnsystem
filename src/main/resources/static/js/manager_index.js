@@ -88,6 +88,8 @@ function addTeacher() {
         success: function (data) {
             if (data.code == 200) {
                 alert("添加成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -130,6 +132,8 @@ function updateTeacher() {
         success: function (data) {
             if (data.code == 200) {
                 alert("修改成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -159,6 +163,8 @@ function getTeacherList() {
                     var t = createTeacherLi(item);
                     teacher_list.append(t);
                 });
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -277,6 +283,8 @@ function getStudentList() {
                     var t = createStudentLi(item);
                     student_list.append(t);
                 });
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -355,6 +363,8 @@ function addStudent() {
         success: function (data) {
             if (data.code == 200) {
                 alert("添加成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -404,6 +414,8 @@ function updateStudent() {
         success: function (data) {
             if (data.code == 200) {
                 alert("修改成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -553,6 +565,8 @@ function updatemanager() {
         success: function (data) {
             if (data.code == 200) {
                 alert("修改成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {

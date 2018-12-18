@@ -93,6 +93,8 @@ function addTeacher() {
         success: function (data) {
             if (data.code == 200) {
                 alert("添加成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -162,6 +164,8 @@ function getStudentList() {
                     var t = createStudentLi(item);
                     student_list.append(t);
                 });
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -315,6 +319,8 @@ function updateteacher() {
         success: function (data) {
             if (data.code == 200) {
                 alert("修改成功");
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
@@ -353,7 +359,8 @@ function getArticleList() {
                         "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a>|<a href=\"updateArticle.html?id="+item.id+"\" target=\"_blank\">修改</a></td></tr>");
                     tbody.append(tr);
                 });
-
+            }else{
+                alert(data.data);
             }
         },
         complete: function (XMLHttpRequest, textStatus) {
