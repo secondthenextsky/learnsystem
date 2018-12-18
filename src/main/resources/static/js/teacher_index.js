@@ -349,8 +349,8 @@ function getArticleList() {
                         "<td>"+item.title+"</td>"+
                         "<td>"+item.textContent+"</td>"+
                         "<td>"+item.teacherName+"</td>"+
-                        "<td>"+item.createTime+"</td>"+
-                        "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a></td></tr>");
+                        "<td>"+new Date(item.createTime).toLocaleString()+"</td>"+
+                        "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a>|<a href=\"updateArticle.html?id="+item.id+"\" target=\"_blank\">修改</a></td></tr>");
                     tbody.append(tr);
                 });
 

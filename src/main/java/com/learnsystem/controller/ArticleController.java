@@ -10,9 +10,10 @@ import com.learnsystem.service.ArticleService;
 import com.learnsystem.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -85,6 +86,53 @@ public class ArticleController {
         }
         articleService.add(article);
         return new Result(Result.HANDLE_SUCCESS,"创建成功");
+    }
+
+    @RequestMapping("/update")
+    public Result update(@RequestParam("id")int id,@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
+        Article article = new Article();
+        article.setTitle(title);
+        article.setTextContent(textContent);
+        article.setId(id);
+        Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
+        article.setTeacherId(teacher.getId());
+        article.setTeacherName(teacher.getUsername());
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("files");
+        //保存文件
+        File path = new File(filePath);
+        if(!path.exists()){
+            path.mkdirs();
+        }
+        if(files!=null&&files.size()>0){
+            for(MultipartFile multipartFile:files){
+                if(multipartFile.isEmpty()){
+                    continue;
+                }
+                File file = new File(filePath+File.separator+System.currentTimeMillis()+multipartFile.getOriginalFilename());
+                List<Attachment> attachments = article.getAttachments();
+                if(attachments==null){
+                    attachments = new ArrayList<>();
+                    article.setAttachments(attachments);
+                }
+                Attachment attachment = new Attachment();
+                attachment.setFileName(file.getName());
+                attachments.add(attachment);
+                try(FileOutputStream fos = new FileOutputStream(file);){
+                    InputStream inputStream = multipartFile.getInputStream();
+                    int len = 0;
+                    byte[] b = new byte[1024];
+                    while((len=inputStream.read(b))>0){
+                        fos.write(b,0,len);
+                    }
+                    fos.flush();
+                    fos.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        articleService.update(article);
+        return new Result(Result.HANDLE_SUCCESS,"修改成功");
     }
 
     /**

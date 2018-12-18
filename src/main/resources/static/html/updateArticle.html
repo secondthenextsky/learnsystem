@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>创建新章节</title>
+    <title>修改章节</title>
 
     <link href="../bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/jumbotron.css" rel="stylesheet">
@@ -35,6 +35,7 @@
             text-indent: 2em
         }
     </style>
+
 </head>
 
 <body class="bg-light">
@@ -55,23 +56,34 @@
         <div class="easyui-tabs" style="width:100%;">
             <div title="article" style="padding:10px;">
                 <div style="width:100%;height: 700px;;" onclick="">
-                    <form method="post" enctype="multipart/form-data" action="/article/add" id="add_form">
+                    <form id="update_form" enctype="multipart/form-data" method="post" action="/article/update">
                         <table style="width:100%;height:auto;border-collapse: collapse;border-width: 1px;border-color: #00bbee;">
                             <tr>
                                 <td >标题：</td>
-                                <td ><input type="text" name="title" style="width:800px;text-align: center;"></td>
+                                <td ><input id="update_title" type="text" name="title" style="width:800px;text-align: center;"></td>
+                            </tr>
+                            <tr>
+                                <td >作者：</td>
+                                <td ><input id="update_teacherName" type="text" name="teacherName" style="width:800px;text-align: center;" disabled></td>
+                            </tr>
+                            <tr>
+                                <td >创建时间：</td>
+                                <td ><input id="update_createTime" type="text" name="createTime" style="width:800px;text-align: center;" disabled></td>
                             </tr>
                             <tr>
                                 <td>文字内容：</td>
-                                <td><textarea name="textContent" cols="200" rows="20"></textarea></td>
+                                <td><textarea id="update_textContent" name="textContent" cols="200" rows="20"></textarea></td>
                             </tr>
                             <tr>
                                 <td>附件：</td>
-                                <td><input type="file" name="files" multiple="multiple"></td>
+                                <td>
+                                    <ul id="update_files_ul"></ul>
+                                    <input type="file" name="files" multiple="multiple">
+                                </td>
                             </tr>
                             <tr>
-                                <td><input type="hidden" name="id"></td>
-                                <td> <input value="提交" onclick="addarticle()" class="btn btn-outline-success my-2 my-sm-0"></td>
+                                <td><input type="hidden" name="id" id="update_id"></td>
+                                <td> <input value="提交" onclick="updatearticle()" class="btn btn-outline-success my-2 my-sm-0"></td>
                             </tr>
                         </table>
                     </form>
@@ -84,13 +96,48 @@
 <footer class="container">
     <p>&copy; Company 2018-2019</p>
 </footer>
-<script>
-    function addarticle() {
-        $("#add_form").ajaxSubmit({
+<script type="application/javascript">
+    $(function () {
+        var articleId = window.location.search;
+        articleId = articleId.substring(articleId.lastIndexOf("=") + 1);
+        showArticle(articleId);
+    });
+    function showArticle(articleId) {
+        $.ajax({
+            type: "POST",
+            async: true,
+            contentType: "application/json",
+            url: "/article/get?articleId=" + articleId,
+            data: {},
+            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+            beforeSend: function () {
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                    var article = data.data;
+                    $("#update_id").val(article.id);
+                    $("#update_title").val(article.title);
+                    $("#update_textContent").val(article.textContent);
+                    $("#update_createTime").val(new Date(article.createTime).toLocaleString());
+                    $("#update_teacherName").val(article.teacherName);
+                    $.each(article.attachments, function (i, item) {
+                        var li = $("<li><a href='/article/getAttachment?id=" + item.id + "' target='_blank'>" + item.fileName + "</a></li>");
+                        $("#update_files_ul").append(li);
+                    });
+                }
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+            },
+            error: function () {
+            }
+        });
+    }
+    function updatearticle() {
+        $("#update_form").ajaxSubmit({
             contentType:"multipart/form-data",
             success:function (data) {
                 if(data.code==200){
-                    alert("添加成功");
+                    alert("修改成功");
                     window.close();
                 }else{
                     alert(data.data);
@@ -98,7 +145,6 @@
             }
         });
     }
-
 </script>
 
 </body>

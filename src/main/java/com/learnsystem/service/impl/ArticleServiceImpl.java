@@ -42,7 +42,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int update(Article article) {
-        return articleDao.update(article);
+        articleDao.update(article);
+        List<Attachment> attachments = article.getAttachments();
+        if (attachments != null && attachments.size() > 0) {
+            for (Attachment attachment : attachments) {
+                attachment.setArticleId(article.getId());
+                attachmentDao.add(attachment);
+            }
+        }
+        return 1;
     }
 
     @Override

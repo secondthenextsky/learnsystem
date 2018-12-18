@@ -91,7 +91,7 @@
                     var article = data.data;
                     $("#title").text(article.title);
                     $("#textContent").text(article.textContent);
-                    $("#createTime").text("创建时间：" + article.createTime);
+                    $("#createTime").text("创建时间：" + new Date(article.createTime).toLocaleString());
                     $("#teacherName").text("作者：" + article.teacherName);
                     $.each(article.attachments, function (i, item) {
                         var li = $("<li><a href='/article/getAttachment?id=" + item.id + "' target='_blank'>" + item.fileName + "</a></li>");
