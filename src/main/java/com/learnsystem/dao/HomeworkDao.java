@@ -2,6 +2,7 @@ package com.learnsystem.dao;
 
 
 import com.learnsystem.bean.Homework;
+import com.learnsystem.bean.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -108,4 +109,11 @@ public interface HomeworkDao {
      * @return
      */
     String getAnswer(@Param("studentId") String studentId, @Param("homeworkId")int homeworkId);
+
+    /**
+     * 获取已经提交过作业的学生列表
+     * @param homeworkId
+     * @return
+     */
+    List<Student> getSubmitedStudent(@Param("homeworkId")int homeworkId);
 }

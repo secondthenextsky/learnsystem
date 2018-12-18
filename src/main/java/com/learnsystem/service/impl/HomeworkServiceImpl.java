@@ -96,4 +96,9 @@ public class HomeworkServiceImpl implements HomeworkService {
         return homeworkDao.getAnswer(student.getId(),homework.getId());
     }
 
+    @Override
+    public List<Student> getSubmitedStudent(int homeworkId) {
+        return homeworkDao.getSubmitedStudent(homeworkId);
+    }
+
 }

@@ -84,4 +84,11 @@ public interface HomeworkService {
      * @return
      */
     String getAnswer(Student student, Homework homework);
+
+    /**
+     * 获取已经提交过作业的学生列表
+     * @param homeworkId
+     * @return
+     */
+    List<Student> getSubmitedStudent(int homeworkId);
 }

@@ -128,6 +128,24 @@ public class HomeworkController {
         return result;
     }
 
+    /**
+     * 获取课程详情以及已经提交的学生列表
+     * @param homeworkId
+     * @param request
+     * @return
+     */
+    @LoginNeed
+    @RequestMapping("/getHomeworkAndStudentList")
+    public Result getHomeworkAndStudentList(@RequestParam("homeworkId") int homeworkId,HttpServletRequest request) {
+        Homework homework = homeworkService.getById(homeworkId);
+        Result result = new Result(Result.HANDLE_SUCCESS,homework);
+        List<Student> students = homeworkService.getSubmitedStudent(homeworkId);
+        if(students!=null&&students.size()>0){
+            result.put("students",students);
+        }
+        return result;
+    }
+
     @LoginNeed
     @RequestMapping("/delete")
     public Result delete(@RequestParam("homeworkId") int homeworkId) {
