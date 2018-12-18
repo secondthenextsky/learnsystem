@@ -49,4 +49,14 @@
         order by sort,beginTime
     </select>
 
+    <insert id="answer">
+        insert into student_homework(studentId,homeworkId,answer,opinion,score,submitTime)
+        value(#{studentId},#{homeworkId},#{answer},#{opinion},#{score},#{submitTime})
+    </insert>
+
+    <update id="score">
+        update student_homework
+        set opinion=#{opinion},score=#{score}
+        where studentId=#{studentId} and homeworkId=#{homeworkId}
+    </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.learnsystem.service;
 
 import com.learnsystem.bean.Article;
 import com.learnsystem.bean.Homework;
+import com.learnsystem.bean.Student;
 
 import java.util.List;
 
@@ -41,4 +42,20 @@ public interface HomeworkService {
     public List<Homework> getAllByTeacher(String teacherId);
 
     public List<Homework> getAll();
+
+    /**
+     * 学生提交作业
+     * @param student
+     * @param homework
+     */
+    public void answer(Student student, Homework homework,String answer);
+
+    /**
+     * 教师评分
+     * @param student
+     * @param homework
+     * @param opinion
+     * @param score
+     */
+    public void score(Student student,Homework homework,String opinion,float score);
 }

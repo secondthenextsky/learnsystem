@@ -25,6 +25,7 @@ function showHomeworkTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "homework");
+    getHomeworkList();
 }
 //显示互动板块
 function showInteractionTab() {
@@ -176,6 +177,43 @@ function getArticleList() {
                         "<td>"+item.teacherName+"</td>"+
                         "<td>"+new Date(item.createTime).toLocaleString()+"</td>"+
                         "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a></td></tr>");
+                    tbody.append(tr);
+                });
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+/////////////////////////////////////////////////////////////////////////////////////////作业
+//获取所有作业列表
+function getHomeworkList() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/homework/getAll",
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                var tbody = $("#homeworkListTBODY");
+                tbody.empty();
+
+                $.each(data.data, function (i, item) {
+                    var tr = $("<tr><td>"+item.id+"</td>" +
+                        "<td>"+item.sort+"</td>"+
+                        "<td>"+item.content+"</td>"+
+                        "<td>"+item.teacherName+"</td>"+
+                        "<td>"+new Date(item.beginTime).toLocaleString()+"</td>"+
+                        "<td>"+new Date(item.endTime).toLocaleString()+"</td>"+
+                        "<td><a href=\"submithomework.html?id="+item.id+"\" target=\"_blank\">查看</a></td></tr>");
                     tbody.append(tr);
                 });
             }else{
