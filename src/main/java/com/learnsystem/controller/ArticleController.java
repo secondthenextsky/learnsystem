@@ -210,4 +210,11 @@ public class ArticleController {
         }
     }
 
+    @LoginNeed
+    @RequestMapping("/delete")
+    public Result delete(@RequestParam("articleId")int articleId){
+        articleService.delete(articleId);
+        return new Result(Result.HANDLE_SUCCESS,"删除成功");
+    }
+
 }

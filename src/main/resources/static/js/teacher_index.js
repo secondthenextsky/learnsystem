@@ -349,16 +349,46 @@ function getArticleList() {
                 tbody.empty();
 
                 $.each(data.data, function (i, item) {
-                    console.log(i);
                     var tr = $("<tr><td>"+item.id+"</td>" +
                         "<td>"+item.sort+"</td>"+
                         "<td>"+item.title+"</td>"+
                         "<td>"+item.textContent+"</td>"+
                         "<td>"+item.teacherName+"</td>"+
                         "<td>"+new Date(item.createTime).toLocaleString()+"</td>"+
-                        "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a>|<a href=\"updateArticle.html?id="+item.id+"\" target=\"_blank\">修改</a></td></tr>");
+                        "<td><a href=\"article.html?id="+item.id+"\" target=\"_blank\">查看</a>" +
+                        "|<a href=\"updateArticle.html?id="+item.id+"\" target=\"_blank\">修改</a>" +
+                        "|<a href='javascript:void(0)' onclick='deletearticle(\""+item.id+"\")'>删除</a></td></tr>");
                     tbody.append(tr);
                 });
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+//删除章节
+function deletearticle(articleId) {
+    var ok = confirm("确定删除吗？");
+    if(!ok){
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/article/delete?articleId="+articleId,
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                alert(data.data);
+                getArticleList();
             }else{
                 alert(data.data);
             }

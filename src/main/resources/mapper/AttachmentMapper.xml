@@ -12,7 +12,7 @@
     </delete>
 
     <delete id="deleteByArticle" parameterType="int">
-        delete from article where articleId=#{articleId}
+        delete from attachment where articleId=#{articleId}
     </delete>
 
     <update id="update" parameterType="Attachment">
