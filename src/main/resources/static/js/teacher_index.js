@@ -25,6 +25,7 @@ function showHomeworkTab() {
     var t = $('#mytabs');
     var tabs = t.tabs('tabs');
     t.tabs('select', "homework");
+    getHomeworkList();
 }
 //显示互动板块
 function showInteractionTab() {
@@ -389,6 +390,76 @@ function deletearticle(articleId) {
             if (data.code == 200) {
                 alert(data.data);
                 getArticleList();
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////作业
+//获取当前登录教师的所有作业列表
+function getHomeworkList() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/homework/getAllByLoginTeacher",
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                var tbody = $("#homeworkListTBODY");
+                tbody.empty();
+
+                $.each(data.data, function (i, item) {
+                    var tr = $("<tr><td>"+item.id+"</td>" +
+                        "<td>"+item.sort+"</td>"+
+                        "<td>"+item.content+"</td>"+
+                        "<td>"+item.teacherName+"</td>"+
+                        "<td>"+new Date(item.beginTime).toLocaleString()+"</td>"+
+                        "<td>"+new Date(item.endTime).toLocaleString()+"</td>"+
+                        "<td><a href=\"homework.html?id="+item.id+"\" target=\"_blank\">查看</a>" +
+                        "|<a href=\"updateHomework.html?id="+item.id+"\" target=\"_blank\">修改</a>" +
+                        "|<a href='javascript:void(0)' onclick='deletehomework(\""+item.id+"\")'>删除</a></td></tr>");
+                    tbody.append(tr);
+                });
+            }else{
+                alert(data.data);
+            }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function () {
+        }
+    });
+}
+
+//删除作业
+function deletehomework(homeworkId) {
+    var ok = confirm("确定删除吗？");
+    if(!ok){
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        async: true,
+        contentType: "application/json",
+        url: "/homework/delete?homeworkId="+homeworkId,
+        data: {},
+        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+        beforeSend: function () {
+        },
+        success: function (data) {
+            if (data.code == 200) {
+                alert(data.data);
+                getHomeworkList();
             }else{
                 alert(data.data);
             }
