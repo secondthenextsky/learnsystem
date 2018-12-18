@@ -28,7 +28,7 @@
             <if test="teacherName!=null and teacherName!=''">
                 teacherName=#{teacherName},
             </if>
-            <if test="sort!=null and sort!=''">
+            <if test="sort!=null">
                 sort=#{sort},
             </if>
         </set>

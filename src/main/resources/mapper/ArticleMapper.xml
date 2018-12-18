@@ -13,7 +13,7 @@
     <update id="update" parameterType="Article">
         update article
         <set>
-            <if test="sort!=null and sort!=''">
+            <if test="sort!=null">
                 sort=#{sort},
             </if>
             <if test="title!=null and title!=''">
