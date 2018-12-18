@@ -104,7 +104,23 @@
                     $("#beginTime").text("创建时间：" + new Date(homework.beginTime).toLocaleString());
                     $("#endTime").text("截止时间：" + new Date(homework.endTime).toLocaleString());
                     $("#teacherName").text("发布者：" + homework.teacherName);
-                    $("#answer_content").text(data.answer);
+                    if(data.answer){
+                        $("#answer_content").text(data.answer);
+                    }
+                    if(data.opinion){
+                        $("#opinion_content").text(data.opinion);
+                        $("#opinion_content").attr("disabled","disabled");
+                        $("#submitBTN").attr("disabled","disabled");
+                    }
+                    if(data.score){
+                        $("#score_content").val(data.score);
+                        if(data.score>=0){
+                            $("#score_content").attr("disabled","disabled");
+                            $("#submitBTN").attr("disabled","disabled");
+                        }else{
+                            $("#score_content").val("");
+                        }
+                    }
                 }
             },
             complete: function (XMLHttpRequest, textStatus) {

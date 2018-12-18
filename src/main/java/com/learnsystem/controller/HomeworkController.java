@@ -149,8 +149,13 @@ public class HomeworkController {
         student = studentService.get(student).get(0);
         Result result = new Result(Result.HANDLE_SUCCESS,homework);
         if(student!=null){
-            result.put("answer",homeworkService.getAnswer(student,homework));
             result.put("student",student);
+            Map<Object,Object> map = homeworkService.getAnswer(student,homework);
+            if(map!=null){
+                result.put("answer",map.get("answer"));
+                result.put("opinion",map.get("opinion"));
+                result.put("score",map.get("score"));
+            }
         }
         return result;
     }
