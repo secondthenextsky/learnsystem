@@ -8,6 +8,7 @@ import com.learnsystem.service.HomeworkService;
 import com.learnsystem.service.TeacherService;
 import com.learnsystem.utils.LoginNeed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +32,15 @@ public class HomeworkController {
      */
     @LoginNeed
     @RequestMapping("/add")
-    public Result add(@RequestParam("title")String title,@RequestParam("textContent")String textContent, HttpServletRequest request) {
+    public Result add(@RequestParam("content")String content,@RequestParam("endTime")String endTime, HttpServletRequest request) {
         Homework homework = new Homework();
+        homework.setContent(content);
+        homework.setBeginTime(new Date());
+        try {
+            homework.setEndTime(new SimpleDateFormat("yyyy-MM-dd").parse(endTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Teacher teacher = (Teacher) request.getSession().getAttribute(Constant.SESSION_LOGIN_TEACHER);
         homework.setTeacherId(teacher.getId());
         homework.setTeacherName(teacher.getUsername());
