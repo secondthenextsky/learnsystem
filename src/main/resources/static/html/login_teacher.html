@@ -42,7 +42,7 @@
         <span id="logo-text">教师登录<label>V<span class="logo-dot rotate"></span></label></span>
     </div>
     <div>
-        <form name="loginform" id="loginform" action="../teacher/login" method="POST">
+        <form name="loginform" id="loginform">
             <div style="margin-top: 25px; position: relative;">
                 <input id="username" name="username" value="" class="txt" type="text" placeholder='账号' />
             </div>
@@ -58,6 +58,13 @@
 </div>
 </body>
 <script>
+    $(function () {
+        $('input').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+                login();
+            }
+        });
+    })
     function login(){
         var username = $("#username").val();
         var password = $("#password").val();

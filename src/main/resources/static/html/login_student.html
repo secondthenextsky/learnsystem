@@ -60,6 +60,13 @@
 </div>
 </body>
 <script>
+    $(function () {
+        $('input').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+                login();
+            }
+        });
+    })
     function login(){
         var username = $("#username").val();
         var password = $("#password").val();
